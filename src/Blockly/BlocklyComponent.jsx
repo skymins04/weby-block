@@ -28,6 +28,9 @@ import Blockly from 'blockly/core';
 import locale from 'blockly/msg/en';
 import 'blockly/blocks';
 
+import './toolbox';
+import './toolbox.css';
+
 Blockly.setLocale(locale);
 
 class BlocklyComponent extends React.Component {
@@ -43,6 +46,11 @@ class BlocklyComponent extends React.Component {
             this.blocklyDiv.current,
             {
                 toolbox: this.toolbox.current,
+                renderer: 'zelos',
+                zoom: {
+                    controls: true,
+                    startScale: 0.65
+                },
                 ...rest
             },
         );
