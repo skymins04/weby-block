@@ -85,3 +85,5 @@ class WebyBlocks extends WebyCore {
         
     }
 }
+
+export default WebyBlocks;

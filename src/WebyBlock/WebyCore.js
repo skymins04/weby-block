@@ -2,12 +2,13 @@ import Blockly from 'blockly/core';
 
 class WebyCore {
     constructor() {
-        this._HTML = 1;
-        this._CSS = 2;
-        this._JS = 3;
-        this.htmlList = [];
-        this.cssList = [];
-        this.jsList = [];    
+        this.htmlList = ['hello'];
+        this.cssList = ['CSS블럭을 생성해주세요'];
+        this.jsList = ['JS블럭을 생성해주세요'];
+    }
+
+    exportXml(_workspace) {
+        return Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(_workspace));
     }
 
     createHatBlock(_workspace, _s, _name) {
@@ -15,19 +16,19 @@ class WebyCore {
         var _text = [null,null,null];
         var _initTexts = [null,'CSS블럭을 생성해주세요', 'JS블럭을 생성해주세요'];
         switch(_s) {
-            case this._HTML:
+            case 1:
                 _list = this.htmlList;
                 _text[0] = 'htmlblock_main_';
                 _text[1] = 'HTML';
                 _text[2] = '.html)';
             break;
-            case this._CSS:
+            case 2:
                 _list = this.cssList;
                 _text[0] = 'cssblock_main_';
                 _text[1] = 'CSS';
                 _text[2] = '.css)';
             break;
-            case this._JS:
+            case 3:
                 _list = this.jsList;
                 _text[0] = 'jsblock_main_';
                 _text[1] = 'JS';
@@ -69,21 +70,24 @@ class WebyCore {
                 ]);
             }
 
-            if(_s != this._HTML && list[0] == _initTexts[_s]) {
+            if(_s != 1 && _list[0] == _initTexts[_s]) {
                 switch(_s) {
-                    case this._CSS:
+                    case 1:
+                        this.htmlList = [];
+                        this.htmlList.push(_name);
+                    break;
+                    case 2:
                         this.cssList = [];
                         this.cssList.push(_name);
                     break;
-                    case this._JS:
+                    case 3:
                         this.jsList = [];
                         this.jsList.push(_name);
                     break;
                 }
             }
-            else this.htmlList.push(_name);
 
-            var _newBlock = workspace.newBlock(_type);
+            var _newBlock = _workspace.newBlock(_type);
             _newBlock.initSvg();
             _newBlock.render();
         }
