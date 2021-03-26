@@ -42,6 +42,7 @@ class App extends React.Component {
         switch(_s) {
             case 1: // html toolbox callbacks
                 if(this.WebyBlocks.needReflash) this.WebyBlocks.defBlocksHtml(true); // html toolbox reflash
+                this.workspaceRef1.current.workspace.registerButtonCallback('createHtml', () => {this.WebyBlocks.createHatBlock(this.workspaceRef1.current.workspace, 1)});
             break;
             case 2: // css toolbox callbacks
                 this.workspaceRef2.current.workspace.registerButtonCallback('createCss', () => {this.WebyBlocks.createHatBlock(this.workspaceRef2.current.workspace, 2)});
@@ -60,6 +61,7 @@ class App extends React.Component {
             <button onClick={() => this._switchWorkspace(3)}>JS</button>
 
             {workspaceShow1 && <BlocklyComponent ref={this.workspaceRef1} readOnly={false} trashcan={true} media={'media/'} move={{ scrollbars: true, drag: true, wheel: true }} initialXml={this.state.workspaceReg1}>
+                <Button text="새 HTML 생성" callbackKey="createHtml"></Button>
                 <Block type="htmlblock_title"></Block>
                 <Block type="htmlblock_importcss"></Block>
                 <Block type="htmlblock_importjs"></Block>
@@ -67,12 +69,12 @@ class App extends React.Component {
                 <Block type="htmlalt_id"></Block>
             </BlocklyComponent>}
             {workspaceShow2 && <BlocklyComponent ref={this.workspaceRef2} readOnly={false} trashcan={true} media={'media/'} move={{ scrollbars: true, drag: true, wheel: true }} initialXml={this.state.workspaceReg2}>
-                <Button text="새 CSS 블럭 생성" callbackKey="createCss"></Button>
+                <Button text="새 CSS 생성" callbackKey="createCss"></Button>
                 <Block type="cssblock_selecter"></Block>
             </BlocklyComponent>}
             {workspaceShow3 && <BlocklyComponent ref={this.workspaceRef3} readOnly={false} trashcan={true} media={'media/'} move={{ scrollbars: true, drag: true, wheel: true }} initialXml={this.state.workspaceReg3}>
-                <Category name="새 JS 블럭 생성" colour="45">
-                    <Button text="새 JS 블럭 생성" callbackKey="createJs"></Button>
+                <Category name="새 JS 생성" colour="45">
+                    <Button text="새 JS 생성" callbackKey="createJs"></Button>
                 </Category>
                 <Sep></Sep>
                 <Category name="논리" colour="%{BKY_LOGIC_HUE}">
@@ -394,6 +396,7 @@ class App extends React.Component {
 
     componentDidMount() {
         this.WebyBlocks.createHatBlock(this.workspaceRef1.current.workspace, 1, 'index', false);
+        this._regToolboxCallback(this.state.activeWorkspace);
     }
 
     componentDidUpdate() {
