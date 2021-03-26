@@ -56,4 +56,22 @@ const Shadow = (p) => {
     return React.createElement("shadow", props, children);
 };
 
-export { Block, Category, Value, Field, Shadow }
+const Button = (p) => {
+    const { children, ...props } = p;
+    props.is = "blockly";
+    return React.createElement("button", props, children);
+};
+
+const Sep = (p) => {
+    const { children, ...props } = p;
+    props.is = "blockly";
+    return React.createElement("sep", props, children);
+};
+
+const Mutation = (p) => {
+    const { children, ...props } = p;
+    props.is = "blockly";
+    return React.createElement("mutation", props, children);
+};
+
+export { Block, Category, Value, Field, Shadow, Button, Sep, Mutation }

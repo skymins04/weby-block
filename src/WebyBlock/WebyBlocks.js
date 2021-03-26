@@ -9,45 +9,47 @@ class WebyBlocks extends WebyCore {
         this.defBlocksJs();
     }
 
-    _importBlockGenerateOptions(s) {
-        var _list, _opt = [];
-        switch(s) {
-            case super._HTML: _list = super.htmlList; break;
-            case super._CSS: _list = super.cssList; break;
-            case super._JS: _list = super.jsList; break;
+    _importBlockGenerateOptions(_s) {
+        var _list = [], _opt = [];
+        switch(_s) {
+            case 1: _list = this.htmlList; break;
+            case 2: _list = this.cssList; break;
+            case 3: _list = this.jsList; break;
         }
         for(var i = 0; i < _list.length; i++) _opt.push([_list[i].toString(), i.toString()]);
         return _opt;
     }
 
-    defBlocksHtml() {
-        Blockly.defineBlocksWithJsonArray([
-            {
-                "type": "htmlblock_title",
-                "message0": "사이트 제목 %1",
-                "args0": [{"type": "field_input", "name": "ARG0", "text": "weby website", "spellcheck": false}],
-                "nextStatement": null,
-                "previousStatement": null,
-                "colour": "1"
-            },
-            {
-                "type": "htmlblock_div",
-                "message0": "영역 %1",
-                "args0": [{"type": "input_value", "name": "ARG0", "check": "Args"}],
-                "message1": "%1",
-                "args1": [{"type": "input_statement", "name": "INNER0"}],
-                "nextStatement": null,
-                "previousStatement": null,
-                "colour": "1"
-            },
-            {
-                "type": "htmlalt_id",
-                "message0": "요소이름 %1",
-                "args0": [{"type": "field_input", "name": "ARG0", "text": "영역1", "spellcheck": false}],
-                "output": "Args",
-                "colour": "1"
-            }
-        ]);
+    defBlocksHtml(_reflashmode = false) {
+        if(!_reflashmode) {
+            Blockly.defineBlocksWithJsonArray([
+                {
+                    "type": "htmlblock_title",
+                    "message0": "사이트 제목 %1",
+                    "args0": [{"type": "field_input", "name": "ARG0", "text": "weby website", "spellcheck": false}],
+                    "nextStatement": null,
+                    "previousStatement": null,
+                    "colour": "1"
+                },
+                {
+                    "type": "htmlblock_div",
+                    "message0": "공간영역 %1",
+                    "args0": [{"type": "input_value", "name": "ARG0", "check": "Args"}],
+                    "message1": "%1",
+                    "args1": [{"type": "input_statement", "name": "INNER0"}],
+                    "nextStatement": null,
+                    "previousStatement": null,
+                    "colour": "1"
+                },
+                {
+                    "type": "htmlalt_id",
+                    "message0": "요소이름 %1",
+                    "args0": [{"type": "field_input", "name": "ARG0", "text": "영역1", "spellcheck": false}],
+                    "output": "Args",
+                    "colour": "1"
+                }
+            ]);
+        }
         Blockly.Blocks['htmlblock_importcss'] = {
             init: function() {
                 this.jsonInit({
@@ -60,7 +62,7 @@ class WebyBlocks extends WebyCore {
                                 .appendField(new Blockly.FieldDropdown(this.generateOptions), 'FILE');
             },
         
-            generateOptions: () => {super._importBlockGenerateOptions(2)}
+            generateOptions: () => {return this._importBlockGenerateOptions(2);}
         };
         Blockly.Blocks['htmlblock_importjs'] = {
             init: function() {
@@ -73,12 +75,24 @@ class WebyBlocks extends WebyCore {
                                 .appendField('JS연결')
                                 .appendField(new Blockly.FieldDropdown(this.generateOptions), 'FILE');
             },
-            generateOptions: () => {super._importBlockGenerateOptions(3)}
+            generateOptions: () => {return this._importBlockGenerateOptions(3);}
         };
+        if(_reflashmode) this.needReflash = false;
     }
 
     defBlocksCss() {
-
+        Blockly.defineBlocksWithJsonArray([
+            {
+                "type": "cssblock_selecter",
+                "message0": "%1의 스타일",
+                "args0": [{"type": "field_input", "name": "ARG0", "text": "영역1", "spellcheck": false}],
+                "message1": "%1",
+                "args1": [{"type": "input_statement", "name": "INNER0"}],
+                "nextStatement": null,
+                "previousStatement": null,
+                "colour": "210"
+            }
+        ]);
     }
 
     defBlocksJs() {
