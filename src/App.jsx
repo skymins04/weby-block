@@ -53,12 +53,33 @@ class App extends React.Component {
         }
     }
 
+    _exportXmls() {
+        this.setState({
+            xmlOutput: <React.Fragment>
+                <div>{this.state.activeWorkspace == 1 ? this.WebyBlocks.exportXml(this.workspaceRef1.current.workspace) : this.state.workspaceReg1}</div>
+                <div>{this.state.activeWorkspace == 2 ? this.WebyBlocks.exportXml(this.workspaceRef2.current.workspace) : this.state.workspaceReg2}</div>
+                <div>{this.state.activeWorkspace == 3 ? this.WebyBlocks.exportXml(this.workspaceRef3.current.workspace) : this.state.workspaceReg3}</div>
+            </React.Fragment>
+        });
+    }
+
+    _viewHeadblockList() {
+        console.log('[HTML XML]');
+        console.log(this.WebyBlocks.htmlList);
+        console.log('[CSS XML]');
+        console.log(this.WebyBlocks.cssList);
+        console.log('[JS XML]');
+        console.log(this.WebyBlocks.jsList);
+    };
+
     render() {
         const {workspaceShow1, workspaceShow2, workspaceShow3} = this.state;
         return( <React.Fragment>
             <button onClick={() => this._switchWorkspace(1)}>HTML</button>
             <button onClick={() => this._switchWorkspace(2)}>CSS</button>
             <button onClick={() => this._switchWorkspace(3)}>JS</button>
+            <button onClick={() => this._exportXmls()}>Export XML</button>
+            <button onClick={() => this._viewHeadblockList()}>View HB List</button>
 
             {workspaceShow1 && <BlocklyComponent ref={this.workspaceRef1} readOnly={false} trashcan={true} media={'media/'} move={{ scrollbars: true, drag: true, wheel: true }} initialXml={this.state.workspaceReg1}>
                 <Button text="새 HTML 생성" callbackKey="createHtml"></Button>
