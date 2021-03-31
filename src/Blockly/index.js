@@ -74,4 +74,10 @@ const Mutation = (p) => {
     return React.createElement("mutation", props, children);
 };
 
-export { Block, Category, Value, Field, Shadow, Button, Sep, Mutation }
+const Label = (p) => {
+    const { children, ...props } = p;
+    props.is = "blockly";
+    return React.createElement("label", props, children);
+};
+
+export { Block, Category, Value, Field, Shadow, Button, Sep, Mutation, Label }

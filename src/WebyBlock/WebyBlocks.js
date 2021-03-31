@@ -24,19 +24,78 @@ class WebyBlocks extends WebyCore {
         if(!_reflashmode) {
             Blockly.defineBlocksWithJsonArray([
                 {
+                    "type": "htmlblock_text",
+                    "message0": "텍스트 %1",
+                    "args0": [{"type": "field_input", "name": "ARG0", "text": "hello world", "spellcheck": false}],
+                    "nextStatement": null,
+                    "previousStatement": null,
+                    "colour": "1"
+                },
+                {
                     "type": "htmlblock_title",
-                    "message0": "사이트 제목 %1",
+                    "message0": "사이트 제목태그 %1",
                     "args0": [{"type": "field_input", "name": "ARG0", "text": "weby website", "spellcheck": false}],
                     "nextStatement": null,
                     "previousStatement": null,
                     "colour": "1"
                 },
                 {
-                    "type": "htmlblock_div",
-                    "message0": "공간영역 %1",
+                    "type": "htmlblock_a",
+                    "message0": "링크태그 %1",
                     "args0": [{"type": "input_value", "name": "ARG0", "check": "Args"}],
                     "message1": "%1",
                     "args1": [{"type": "input_statement", "name": "INNER0"}],
+                    "nextStatement": null,
+                    "previousStatement": null,
+                    "colour": "1"
+                },
+                {
+                    "type": "htmlblock_input",
+                    "message0": "%1 입력태그",
+                    "args0": [
+                        {
+                            "type": "field_dropdown",
+                            "name": "ARG0",
+                            "options": [
+                                ["텍스트", "text"],
+                                ["비밀번호", "password"],
+                                ["날짜", "date"],
+                                ["날짜&시간", "datetime-local"],
+                                ["버튼", "button"],
+                                ["리셋버튼", "reset"],
+                                ["전송버튼", "submit"],
+                                ["파일업로드버튼", "file"],
+                                ["체크박스", "checkbox"],
+                                ["라디오버튼", "radio"],
+                                ["색상", "color"]
+                            ]
+                        }
+                    ],
+                    "nextStatement": null,
+                    "previousStatement": null,
+                    "colour": "1"
+                },
+                {
+                    "type": "htmlblock_div",
+                    "message0": "영역태그 %1",
+                    "args0": [{"type": "input_value", "name": "ARG0", "check": "Args"}],
+                    "message1": "%1",
+                    "args1": [{"type": "input_statement", "name": "INNER0"}],
+                    "nextStatement": null,
+                    "previousStatement": null,
+                    "colour": "1"
+                },
+                {
+                    "type": "htmlblock_embed",
+                    "message0": "임베드태그 %1",
+                    "args0": [{"type": "field_input", "name": "ARG0", "text": "https://소스URL/#", "spellcheck": false}],
+                    "nextStatement": null,
+                    "previousStatement": null,
+                    "colour": "1"
+                },
+                {
+                    "type": "htmlblock_br",
+                    "message0": "줄바꿈",
                     "nextStatement": null,
                     "previousStatement": null,
                     "colour": "1"

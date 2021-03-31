@@ -1,5 +1,5 @@
 import React from 'react';
-import BlocklyComponent, { Block, Value, Field, Shadow, Category, Button, Sep, Mutation } from './Blockly';
+import BlocklyComponent, { Block, Value, Field, Shadow, Category, Button, Sep, Mutation, Label } from './Blockly';
 
 import WebyBlocks from './WebyBlock/WebyBlocks';
 
@@ -83,10 +83,17 @@ class App extends React.Component {
 
             {workspaceShow1 && <BlocklyComponent ref={this.workspaceRef1} readOnly={false} trashcan={true} media={'media/'} move={{ scrollbars: true, drag: true, wheel: true }} initialXml={this.state.workspaceReg1}>
                 <Button text="새 HTML 생성" callbackKey="createHtml"></Button>
+                <Label text="태그 블럭들"></Label>
+                <Block type="htmlblock_text"></Block>
                 <Block type="htmlblock_title"></Block>
                 <Block type="htmlblock_importcss"></Block>
                 <Block type="htmlblock_importjs"></Block>
                 <Block type="htmlblock_div"></Block>
+                <Block type="htmlblock_a"></Block>
+                <Block type="htmlblock_input"></Block>
+                <Block type="htmlblock_embed"></Block>
+                <Block type="htmlblock_br"></Block>
+                <Label text="태그속성 블럭들"></Label>
                 <Block type="htmlalt_id"></Block>
             </BlocklyComponent>}
             {workspaceShow2 && <BlocklyComponent ref={this.workspaceRef2} readOnly={false} trashcan={true} media={'media/'} move={{ scrollbars: true, drag: true, wheel: true }} initialXml={this.state.workspaceReg2}>
