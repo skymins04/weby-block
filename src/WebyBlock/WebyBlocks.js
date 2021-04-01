@@ -172,33 +172,22 @@ class WebyBlocks extends WebyCore {
                 "colour": "210"
             },
             {
-                "type": "cssargs_and",
-                "message0": "%1 & %2",
+                "type": "cssargs_combinator",
+                "message0": "%1 %2 %3",
                 "args0": [
                     {"type": "input_value", "name": "ARG0", "check": "CSSARGS"},
-                    {"type": "input_value", "name": "ARG1", "check": "CSSARGS"}
-                ],
-                "inputsInline": true,
-                "output": "CSSARGS",
-                "colour": "210"
-            },
-            {
-                "type": "cssargs_sub",
-                "message0": "%1 하위의 모든 %2",
-                "args0": [
-                    {"type": "input_value", "name": "ARG0", "check": "CSSARGS"},
-                    {"type": "input_value", "name": "ARG1", "check": "CSSARGS"}
-                ],
-                "inputsInline": true,
-                "output": "CSSARGS",
-                "colour": "210"
-            },
-            {
-                "type": "cssargs_children",
-                "message0": "%1 직속 하위 %2",
-                "args0": [
-                    {"type": "input_value", "name": "ARG0", "check": "CSSARGS"},
-                    {"type": "input_value", "name": "ARG1", "check": "CSSARGS"}
+                    {
+                        "type": "field_dropdown",
+                        "name": "ARG1",
+                        "options": [
+                            ["&", ","],
+                            ["하위의 모든", " "],
+                            ["의 자식", ">"],
+                            ["의 일반형제", "~"],
+                            ["의 인접형제", "+"]
+                        ]
+                    },
+                    {"type": "input_value", "name": "ARG2", "check": "CSSARGS"}
                 ],
                 "inputsInline": true,
                 "output": "CSSARGS",

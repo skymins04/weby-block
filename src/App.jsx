@@ -101,27 +101,11 @@ class App extends React.Component {
                 <Button text="새 CSS 생성" callbackKey="createCss"></Button>
                 <Block type="cssblock_uniselecter"><Value name="ARG0"><Shadow type="cssargs_textfield"></Shadow></Value></Block>
                 <Block type="cssblock_idselecter"><Value name="ARG0"><Shadow type="cssargs_textfield"></Shadow></Value></Block>
-                <Block type="cssargs_and">
+                <Block type="cssargs_combinator">
                     <Value name="ARG0">
                         <Shadow type="cssargs_textfield"></Shadow>
                     </Value>
-                    <Value name="ARG1">
-                        <Shadow type="cssargs_textfield"></Shadow>
-                    </Value>
-                </Block>
-                <Block type="cssargs_sub">
-                    <Value name="ARG0">
-                        <Shadow type="cssargs_textfield"></Shadow>
-                    </Value>
-                    <Value name="ARG1">
-                        <Shadow type="cssargs_textfield"></Shadow>
-                    </Value>
-                </Block>
-                <Block type="cssargs_children">
-                    <Value name="ARG0">
-                        <Shadow type="cssargs_textfield"></Shadow>
-                    </Value>
-                    <Value name="ARG1">
+                    <Value name="ARG2">
                         <Shadow type="cssargs_textfield"></Shadow>
                     </Value>
                 </Block>
