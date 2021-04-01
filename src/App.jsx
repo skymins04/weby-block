@@ -84,21 +84,51 @@ class App extends React.Component {
             {workspaceShow1 && <BlocklyComponent ref={this.workspaceRef1} readOnly={false} trashcan={true} media={'media/'} move={{ scrollbars: true, drag: true, wheel: true }} initialXml={this.state.workspaceReg1}>
                 <Button text="새 HTML 생성" callbackKey="createHtml"></Button>
                 <Label text="태그 블럭들"></Label>
-                <Block type="htmlblock_text"></Block>
-                <Block type="htmlblock_title"></Block>
                 <Block type="htmlblock_importcss"></Block>
                 <Block type="htmlblock_importjs"></Block>
+                <Block type="htmlblock_title"></Block>
+                <Block type="htmlblock_text"></Block>
+                <Block type="htmlblock_h"></Block>
                 <Block type="htmlblock_div"></Block>
                 <Block type="htmlblock_a"></Block>
                 <Block type="htmlblock_input"></Block>
                 <Block type="htmlblock_embed"></Block>
                 <Block type="htmlblock_br"></Block>
-                <Label text="태그속성 블럭들"></Label>
+                <Label text="속성 블럭들"></Label>
                 <Block type="htmlalt_id"></Block>
             </BlocklyComponent>}
             {workspaceShow2 && <BlocklyComponent ref={this.workspaceRef2} readOnly={false} trashcan={true} media={'media/'} move={{ scrollbars: true, drag: true, wheel: true }} initialXml={this.state.workspaceReg2}>
                 <Button text="새 CSS 생성" callbackKey="createCss"></Button>
-                <Block type="cssblock_selecter"></Block>
+                <Block type="cssblock_uniselecter"><Value name="ARG0"><Shadow type="cssargs_textfield"></Shadow></Value></Block>
+                <Block type="cssblock_idselecter"><Value name="ARG0"><Shadow type="cssargs_textfield"></Shadow></Value></Block>
+                <Block type="cssargs_and">
+                    <Value name="ARG0">
+                        <Shadow type="cssargs_textfield"></Shadow>
+                    </Value>
+                    <Value name="ARG1">
+                        <Shadow type="cssargs_textfield"></Shadow>
+                    </Value>
+                </Block>
+                <Block type="cssargs_sub">
+                    <Value name="ARG0">
+                        <Shadow type="cssargs_textfield"></Shadow>
+                    </Value>
+                    <Value name="ARG1">
+                        <Shadow type="cssargs_textfield"></Shadow>
+                    </Value>
+                </Block>
+                <Block type="cssargs_children">
+                    <Value name="ARG0">
+                        <Shadow type="cssargs_textfield"></Shadow>
+                    </Value>
+                    <Value name="ARG1">
+                        <Shadow type="cssargs_textfield"></Shadow>
+                    </Value>
+                </Block>
+                <Block type="cssblock_fontcolor"><Value name="ARG0"><Shadow type="colour_picker"></Shadow></Value></Block>
+                <Block type="cssblock_fontsize"></Block>
+                <Block type="cssblock_fontweight"></Block>
+                <Block type="cssblock_fontstyle"></Block>
             </BlocklyComponent>}
             {workspaceShow3 && <BlocklyComponent ref={this.workspaceRef3} readOnly={false} trashcan={true} media={'media/'} move={{ scrollbars: true, drag: true, wheel: true }} initialXml={this.state.workspaceReg3}>
                 <Category name="새 JS 생성" colour="45">

@@ -33,8 +33,29 @@ class WebyBlocks extends WebyCore {
                 },
                 {
                     "type": "htmlblock_title",
-                    "message0": "사이트 제목태그 %1",
+                    "message0": "사이트제목태그 %1",
                     "args0": [{"type": "field_input", "name": "ARG0", "text": "weby website", "spellcheck": false}],
+                    "nextStatement": null,
+                    "previousStatement": null,
+                    "colour": "1"
+                },
+                {
+                    "type": "htmlblock_h",
+                    "message0": "%1제목태그 %2",
+                    "args0": [{"type": "field_dropdown","name": "ARG0","options": [["큰","BIGH"],["중간","MIDH"],["작은","SMLH"]]},
+                            {"type": "input_value", "name": "ARG0", "check": "Args"}],
+                    "message1": "%1",
+                    "args1": [{"type": "input_statement", "name": "INNER0"}],
+                    "nextStatement": null,
+                    "previousStatement": null,
+                    "colour": "1"
+                },
+                {
+                    "type": "htmlblock_div",
+                    "message0": "영역태그 %1",
+                    "args0": [{"type": "input_value", "name": "ARG0", "check": "Args"}],
+                    "message1": "%1",
+                    "args1": [{"type": "input_statement", "name": "INNER0"}],
                     "nextStatement": null,
                     "previousStatement": null,
                     "colour": "1"
@@ -71,16 +92,6 @@ class WebyBlocks extends WebyCore {
                             ]
                         }
                     ],
-                    "nextStatement": null,
-                    "previousStatement": null,
-                    "colour": "1"
-                },
-                {
-                    "type": "htmlblock_div",
-                    "message0": "영역태그 %1",
-                    "args0": [{"type": "input_value", "name": "ARG0", "check": "Args"}],
-                    "message1": "%1",
-                    "args1": [{"type": "input_statement", "name": "INNER0"}],
                     "nextStatement": null,
                     "previousStatement": null,
                     "colour": "1"
@@ -142,11 +153,126 @@ class WebyBlocks extends WebyCore {
     defBlocksCss() {
         Blockly.defineBlocksWithJsonArray([
             {
-                "type": "cssblock_selecter",
-                "message0": "%1의 스타일",
-                "args0": [{"type": "field_input", "name": "ARG0", "text": "영역1", "spellcheck": false}],
+                "type": "cssblock_uniselecter",
+                "message0": "모든요소의 스타일",
                 "message1": "%1",
                 "args1": [{"type": "input_statement", "name": "INNER0"}],
+                "nextStatement": null,
+                "previousStatement": null,
+                "colour": "210"
+            },
+            {
+                "type": "cssblock_idselecter",
+                "message0": "%1의 스타일",
+                "args0": [{"type": "input_value", "name": "ARG0", "check": "CSSARGS"}],
+                "message1": "%1",
+                "args1": [{"type": "input_statement", "name": "INNER0"}],
+                "nextStatement": null,
+                "previousStatement": null,
+                "colour": "210"
+            },
+            {
+                "type": "cssargs_and",
+                "message0": "%1 & %2",
+                "args0": [
+                    {"type": "input_value", "name": "ARG0", "check": "CSSARGS"},
+                    {"type": "input_value", "name": "ARG1", "check": "CSSARGS"}
+                ],
+                "inputsInline": true,
+                "output": "CSSARGS",
+                "colour": "210"
+            },
+            {
+                "type": "cssargs_sub",
+                "message0": "%1 하위의 모든 %2",
+                "args0": [
+                    {"type": "input_value", "name": "ARG0", "check": "CSSARGS"},
+                    {"type": "input_value", "name": "ARG1", "check": "CSSARGS"}
+                ],
+                "inputsInline": true,
+                "output": "CSSARGS",
+                "colour": "210"
+            },
+            {
+                "type": "cssargs_children",
+                "message0": "%1 직속 하위 %2",
+                "args0": [
+                    {"type": "input_value", "name": "ARG0", "check": "CSSARGS"},
+                    {"type": "input_value", "name": "ARG1", "check": "CSSARGS"}
+                ],
+                "inputsInline": true,
+                "output": "CSSARGS",
+                "colour": "210"
+            },
+            {
+                "type": "cssargs_textfield",
+                "message0": "%1",
+                "args0": [
+                    {"type": "field_input", "name": "ARG0"}
+                ],
+                "output": "CSSARGS",
+                "colour": "210"
+            },
+            {
+                "type": "cssblock_fontcolor",
+                "message0": "폰트 색상: %1",
+                "args0": [{"type": "input_value", "name": "ARG0"}],
+                "nextStatement": null,
+                "previousStatement": null,
+                "colour": "210"
+            },
+            {
+                "type": "cssblock_fontsize",
+                "message0": "폰트 사이즈: %1 %2",
+                "args0": [
+                    {"type": "field_number", "name": "ARG0", "value": 24, "min": 0, "precision": 1}, 
+                    {
+                        "type": "field_dropdown",
+                        "name": "ARG1",
+                        "options": [
+                            ["px", "px"],
+                            ["pt", "pt"],
+                            ["em", "em"]
+                        ]
+                    }
+                ],
+                "nextStatement": null,
+                "previousStatement": null,
+                "colour": "210"
+            },
+            {
+                "type": "cssblock_fontweight",
+                "message0": "폰트 굵기: %1",
+                "args0": [
+                    {
+                        "type": "field_dropdown",
+                        "name": "ARG0",
+                        "options": [
+                            ["보통", "normal"],
+                            ["얇게", "lighter"],
+                            ["굵게", "bold"],
+                            ["제일 굵게", "bolder"]
+                        ]
+                    }
+                ],
+                "nextStatement": null,
+                "previousStatement": null,
+                "colour": "210"
+            },
+            {
+                "type": "cssblock_fontstyle",
+                "message0": "폰트 스타일: %1",
+                "args0": [
+                    {
+                        "type": "field_dropdown",
+                        "name": "ARG0",
+                        "options": [
+                            ["보통", "normal"],
+                            ["이탤릭", "italic"],
+                            ["강제 이탤릭", "oblique"]
+                        ]
+                    }
+                ],
                 "nextStatement": null,
                 "previousStatement": null,
                 "colour": "210"
