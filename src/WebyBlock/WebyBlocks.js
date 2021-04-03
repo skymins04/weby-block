@@ -15,6 +15,7 @@ class WebyBlocks extends WebyCore {
             case 1: _list = this.htmlList; break;
             case 2: _list = this.cssList; break;
             case 3: _list = this.jsList; break;
+            default: break;
         }
         for(var i = 0; i < _list.length; i++) _opt.push([_list[i].toString(), i.toString()]);
         return _opt;
@@ -26,7 +27,7 @@ class WebyBlocks extends WebyCore {
                 {
                     "type": "htmlblock_text",
                     "message0": "텍스트 %1",
-                    "args0": [{"type": "field_input", "name": "ARG0", "text": "hello world", "spellcheck": false}],
+                    "args0": [{"type": "field_multilinetext", "name": "ARG0", "text": "hello\nworld", "spellcheck": false}],
                     "nextStatement": null,
                     "previousStatement": null,
                     "colour": "1"
@@ -42,8 +43,8 @@ class WebyBlocks extends WebyCore {
                 {
                     "type": "htmlblock_h",
                     "message0": "%1제목태그 %2",
-                    "args0": [{"type": "field_dropdown","name": "ARG0","options": [["큰","BIGH"],["중간","MIDH"],["작은","SMLH"]]},
-                            {"type": "input_value", "name": "ARG0", "check": "Args"}],
+                    "args0": [{"type": "field_dropdown","name": "ARG0","options": [["큰","0"],["중간","1"],["작은","2"]]},
+                            {"type": "input_value", "name": "ARG1", "check": "Args"}],
                     "message1": "%1",
                     "args1": [{"type": "input_statement", "name": "INNER0"}],
                     "nextStatement": null,
@@ -72,23 +73,23 @@ class WebyBlocks extends WebyCore {
                 },
                 {
                     "type": "htmlblock_input",
-                    "message0": "%1 입력태그",
+                    "message0": "입력태그 %1",
                     "args0": [
                         {
                             "type": "field_dropdown",
                             "name": "ARG0",
                             "options": [
-                                ["텍스트", "text"],
-                                ["비밀번호", "password"],
-                                ["날짜", "date"],
-                                ["날짜&시간", "datetime-local"],
-                                ["버튼", "button"],
-                                ["리셋버튼", "reset"],
-                                ["전송버튼", "submit"],
-                                ["파일업로드버튼", "file"],
-                                ["체크박스", "checkbox"],
-                                ["라디오버튼", "radio"],
-                                ["색상", "color"]
+                                ["텍스트", "0"],
+                                ["비밀번호", "1"],
+                                ["날짜", "2"],
+                                ["날짜&시간", "3"],
+                                ["기본버튼", "4"],
+                                ["리셋버튼", "5"],
+                                ["전송버튼", "6"],
+                                ["파일업로드버튼", "7"],
+                                ["체크박스", "8"],
+                                ["라디오버튼", "9"],
+                                ["색상", "10"]
                             ]
                         }
                     ],
@@ -112,9 +113,16 @@ class WebyBlocks extends WebyCore {
                     "colour": "1"
                 },
                 {
+                    "type": "htmlalt_class",
+                    "message0": "그룹이름 %1",
+                    "args0": [{"type": "field_input", "name": "ARG0", "text": "그룹1", "spellcheck": false}],
+                    "output": "Args",
+                    "colour": "1"
+                },
+                {
                     "type": "htmlalt_id",
                     "message0": "요소이름 %1",
-                    "args0": [{"type": "field_input", "name": "ARG0", "text": "영역1", "spellcheck": false}],
+                    "args0": [{"type": "field_input", "name": "ARG0", "text": "요소1", "spellcheck": false}],
                     "output": "Args",
                     "colour": "1"
                 }
@@ -127,9 +135,9 @@ class WebyBlocks extends WebyCore {
                     "previousStatement": null,
                     "colour": "1"
                 });
-                var input = this.appendDummyInput()
-                                .appendField('CSS연결')
-                                .appendField(new Blockly.FieldDropdown(this.generateOptions), 'FILE');
+                this.appendDummyInput()
+                    .appendField('CSS연결')
+                    .appendField(new Blockly.FieldDropdown(this.generateOptions), 'FILE');
             },
         
             generateOptions: () => {return this._importBlockGenerateOptions(2);}
@@ -141,9 +149,9 @@ class WebyBlocks extends WebyCore {
                     "previousStatement": null,
                     "colour": "1"
                 });
-                var input = this.appendDummyInput()
-                                .appendField('JS연결')
-                                .appendField(new Blockly.FieldDropdown(this.generateOptions), 'FILE');
+                this.appendDummyInput()
+                    .appendField('JS연결')
+                    .appendField(new Blockly.FieldDropdown(this.generateOptions), 'FILE');
             },
             generateOptions: () => {return this._importBlockGenerateOptions(3);}
         };
@@ -162,9 +170,9 @@ class WebyBlocks extends WebyCore {
                 "colour": "210"
             },
             {
-                "type": "cssblock_idselecter",
+                "type": "cssblock_selecter",
                 "message0": "%1의 스타일",
-                "args0": [{"type": "input_value", "name": "ARG0", "check": "CSSARGS"}],
+                "args0": [{"type": "input_value", "name": "ARG0", "check": ["CssArgs", "CssCombi"]}],
                 "message1": "%1",
                 "args1": [{"type": "input_statement", "name": "INNER0"}],
                 "nextStatement": null,
@@ -172,34 +180,157 @@ class WebyBlocks extends WebyCore {
                 "colour": "210"
             },
             {
-                "type": "cssargs_combinator",
-                "message0": "%1 %2 %3",
+                "type": "cssargs_tagname",
+                "message0": "%1",
                 "args0": [
-                    {"type": "input_value", "name": "ARG0", "check": "CSSARGS"},
+                    {
+                        "type": "field_dropdown",
+                        "name": "ARG0",
+                        "options": [
+                            ["영역태그", "0"],
+                            ["링크태그", "1"],
+                            ["입력태그", "2"],
+                            ["큰 제목태그", "3"],
+                            ["중간 제목태그", "4"],
+                            ["작은 제목태그", "5"],
+                            ["임베드태그", "6"]
+                        ]
+                    }
+                ],
+                "inputsInline": true,
+                "output": "CssArgs",
+                "colour": "210"
+            },
+            {
+                "type": "cssargs_idname",
+                "message0": "요소이름 %1",
+                "args0": [
+                    {"type": "input_value", "name": "ARG0", "check": "CssText"}
+                ],
+                "inputsInline": true,
+                "output": "CssArgs",
+                "colour": "210"
+            },
+            {
+                "type": "cssargs_classname",
+                "message0": "그룹이름 %1",
+                "args0": [
+                    {"type": "input_value", "name": "ARG0", "check": "CssText"}
+                ],
+                "inputsInline": true,
+                "output": "CssArgs",
+                "colour": "210"
+            },
+            {
+                "type": "cssargs_pseudoclass",
+                "message0": "%1 : %2",
+                "args0": [
+                    {"type": "input_value", "name": "ARG0", "check": "CssArgs"},
                     {
                         "type": "field_dropdown",
                         "name": "ARG1",
                         "options": [
-                            ["&", ","],
-                            ["하위의 모든", " "],
-                            ["의 자식", ">"],
-                            ["의 일반형제", "~"],
-                            ["의 인접형제", "+"]
+                            ["이미 방문한 링크상태", "0"],
+                            ["아직 방문하지 않은 링크상태", "1"],
+                            ["현재 클릭중인 링크상태", "2"],
+                            ["현재 마우스를 올려놓은 상태", "3"]
                         ]
-                    },
-                    {"type": "input_value", "name": "ARG2", "check": "CSSARGS"}
+                    }
                 ],
                 "inputsInline": true,
-                "output": "CSSARGS",
-                "colour": "210"
+                "output": "CssArgs",
+                "colour": "180"
+            },
+            {
+                "type": "cssargs_structural_pseudoclass1",
+                "message0": "부모요소의 %1 %2 %3",
+                "args0": [
+                    {"type": "field_number", "name": "ARG0", "value": 1, "min": 1, "precision": 1},
+                    {
+                        "type": "field_dropdown",
+                        "name": "ARG1",
+                        "options": [
+                            ["번째(앞에서) 자식인", "0"],
+                            ["번째(뒤에서) 자식인", "1"],
+                            ["번째(같은유형 중 앞에서) 자식인", "2"],
+                            ["번째(같은유형 중 뒤에서) 자식인", "3"],
+                        ]
+                    },
+                    {"type": "input_value", "name": "ARG2", "check": "CssArgs"}
+                ],
+                "inputsInline": true,
+                "output": "CssArgs",
+                "colour": "180"
+            },
+            {
+                "type": "cssargs_structural_pseudoclass2",
+                "message0": "부모요소의 %1 %2",
+                "args0": [
+                    {
+                        "type": "field_dropdown",
+                        "name": "ARG0",
+                        "options": [
+                            ["첫번째 자식인", "0"],
+                            ["마지막 자식인", "1"],
+                            ["첫번째(같은유형 중) 자식인", "2"],
+                            ["마지막(같은유형 중) 자식인", "3"],
+                            ["유일한 자식인", "4"],
+                            ["자식요소가 비어있는 자식인", "5"]
+                        ]
+                    },
+                    {"type": "input_value", "name": "ARG1", "check": "CssArgs"}
+                ],
+                "inputsInline": true,
+                "output": "CssArgs",
+                "colour": "180"
+            },
+            {
+                "type": "cssargs_combinator",
+                "message0": "%1 %2 %3",
+                "args0": [
+                    {"type": "input_value", "name": "ARG0", "check": ["CssArgs", "CssCombi"]},
+                    {
+                        "type": "field_dropdown",
+                        "name": "ARG1",
+                        "options": [
+                            ["&", "0"],
+                            ["하위의 모든", "1"],
+                            ["의 자식", "2"],
+                            ["의 일반형제", "3"],
+                            ["의 인접형제", "4"]
+                        ]
+                    },
+                    {"type": "input_value", "name": "ARG2", "check": ["CssArgs", "CssCombi"]}
+                ],
+                "inputsInline": true,
+                "output": "CssCombi",
+                "colour": "180"
             },
             {
                 "type": "cssargs_textfield",
                 "message0": "%1",
+                "args0": [{"type": "field_input", "name": "ARG0"}],
+                "output": "CssText",
+                "colour": "210"
+            },
+            {
+                "type": "cssargs_sizefield",
+                "message0": "%1 %2",
                 "args0": [
-                    {"type": "field_input", "name": "ARG0"}
+                    {"type": "field_number", "name": "ARG0", "value": 1, "precision": 1},
+                    {
+                        "type": "field_dropdown",
+                        "name": "ARG1",
+                        "options":[
+                            ["px", "0"],
+                            ["pt", "1"],
+                            ["em", "2"],
+                            ["ex", "3"],
+                            ["%", "4"]
+                        ]
+                    }
                 ],
-                "output": "CSSARGS",
+                "output": "CssSize",
                 "colour": "210"
             },
             {
@@ -212,17 +343,12 @@ class WebyBlocks extends WebyCore {
             },
             {
                 "type": "cssblock_fontsize",
-                "message0": "폰트 사이즈: %1 %2",
+                "message0": "폰트 사이즈: %1",
                 "args0": [
-                    {"type": "field_number", "name": "ARG0", "value": 24, "min": 0, "precision": 1}, 
                     {
-                        "type": "field_dropdown",
-                        "name": "ARG1",
-                        "options": [
-                            ["px", "px"],
-                            ["pt", "pt"],
-                            ["em", "em"]
-                        ]
+                        "type": "input_value",
+                        "name": "ARG0",
+                        "check": "CssSize"
                     }
                 ],
                 "nextStatement": null,
@@ -237,10 +363,10 @@ class WebyBlocks extends WebyCore {
                         "type": "field_dropdown",
                         "name": "ARG0",
                         "options": [
-                            ["보통", "normal"],
-                            ["얇게", "lighter"],
-                            ["굵게", "bold"],
-                            ["제일 굵게", "bolder"]
+                            ["보통", "0"],
+                            ["얇게", "1"],
+                            ["굵게", "2"],
+                            ["제일 굵게", "3"]
                         ]
                     }
                 ],
@@ -256,12 +382,141 @@ class WebyBlocks extends WebyCore {
                         "type": "field_dropdown",
                         "name": "ARG0",
                         "options": [
-                            ["보통", "normal"],
-                            ["이탤릭", "italic"],
-                            ["강제 이탤릭", "oblique"]
+                            ["보통", "0"],
+                            ["이탤릭", "1"],
+                            ["강제 이탤릭", "2"]
                         ]
                     }
                 ],
+                "nextStatement": null,
+                "previousStatement": null,
+                "colour": "210"
+            },
+            {
+                "type": "cssblock_width",
+                "message0": "폭 길이: %1",
+                "args0": [
+                    {
+                        "type": "input_value",
+                        "name": "ARG0",
+                        "check": "CssSize"
+                    }
+                ],
+                "nextStatement": null,
+                "previousStatement": null,
+                "colour": "210"
+            },
+            {
+                "type": "cssblock_height",
+                "message0": "높이 길이: %1",
+                "args0": [
+                    {
+                        "type": "input_value",
+                        "name": "ARG0",
+                        "check": "CssSize"
+                    }
+                ],
+                "nextStatement": null,
+                "previousStatement": null,
+                "colour": "210"
+            },
+            {
+                "type": "cssblock_margin",
+                "message0": "마진 위쪽 %1 아래쪽 %2 오른쪽 %3 왼쪽 %4",
+                "args0": [
+                    {
+                        "type": "input_value",
+                        "name": "ARG0",
+                        "check": "CssSize"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "ARG1",
+                        "check": "CssSize"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "ARG2",
+                        "check": "CssSize"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "ARG3",
+                        "check": "CssSize"
+                    }
+                ],
+                "inputsInline": true,
+                "nextStatement": null,
+                "previousStatement": null,
+                "colour": "210"
+            },
+            {
+                "type": "cssblock_padding",
+                "message0": "패딩 위쪽 %1 아래쪽 %2 오른쪽 %3 왼쪽 %4",
+                "args0": [
+                    {
+                        "type": "input_value",
+                        "name": "ARG0",
+                        "check": "CssSize"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "ARG1",
+                        "check": "CssSize"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "ARG2",
+                        "check": "CssSize"
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "ARG3",
+                        "check": "CssSize"
+                    }
+                ],
+                "inputsInline": true,
+                "nextStatement": null,
+                "previousStatement": null,
+                "colour": "210"
+            },
+            {
+                "type": "cssblock_border",
+                "message0": "외곽선 %1 색상 %2 형태 %3 두께 %4",
+                "args0": [
+                    {
+                        "type": "field_dropdown",
+                        "name": "ARG0",
+                        "options": [
+                            ["전체","0"],
+                            ["위쪽","1"],
+                            ["아래쪽","2"],
+                            ["오른쪽","3"],
+                            ["왼쪽","4"]
+                        ]
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "ARG1"
+                    },
+                    {
+                        "type": "field_dropdown",
+                        "name": "ARG2",
+                        "options": [
+                            ["없음","0"],
+                            ["실선","1"],
+                            ["점선","2"],
+                            ["대쉬선","3"],
+                            ["이중선","4"]
+                        ]
+                    },
+                    {
+                        "type": "input_value",
+                        "name": "ARG3",
+                        "check": "CssSize"
+                    },
+                ],
+                "inputsInline": true,
                 "nextStatement": null,
                 "previousStatement": null,
                 "colour": "210"

@@ -29,11 +29,13 @@ class App extends React.Component {
             case 1: this.setState({workspaceReg1: this.WebyBlocks.exportXml(this.workspaceRef1.current.workspace)}); break;
             case 2: this.setState({workspaceReg2: this.WebyBlocks.exportXml(this.workspaceRef2.current.workspace)}); break;
             case 3: this.setState({workspaceReg3: this.WebyBlocks.exportXml(this.workspaceRef3.current.workspace)}); break;
+            default: break;
         }
         switch(_s) {
             case 1: this.setState({workspaceShow1: true, workspaceShow2: false, workspaceShow3: false}); break;
             case 2: this.setState({workspaceShow1: false, workspaceShow2: true, workspaceShow3: false}); break;
             case 3: this.setState({workspaceShow1: false, workspaceShow2: false, workspaceShow3: true}); break;
+            default: break;
         }
         this.setState({activeWorkspace: _s});
     }
@@ -50,15 +52,16 @@ class App extends React.Component {
             case 3: // js toolbox callbacks
                 this.workspaceRef3.current.workspace.registerButtonCallback('createJs', () => {this.WebyBlocks.createHatBlock(this.workspaceRef3.current.workspace, 3)});
             break;
+            default: break;
         }
     }
 
     _exportXmls() {
         this.setState({
             xmlOutput: <React.Fragment>
-                <div>{this.state.activeWorkspace == 1 ? this.WebyBlocks.exportXml(this.workspaceRef1.current.workspace) : this.state.workspaceReg1}</div>
-                <div>{this.state.activeWorkspace == 2 ? this.WebyBlocks.exportXml(this.workspaceRef2.current.workspace) : this.state.workspaceReg2}</div>
-                <div>{this.state.activeWorkspace == 3 ? this.WebyBlocks.exportXml(this.workspaceRef3.current.workspace) : this.state.workspaceReg3}</div>
+                <div>{this.state.activeWorkspace === 1 ? this.WebyBlocks.exportXml(this.workspaceRef1.current.workspace) : this.state.workspaceReg1}</div>
+                <div>{this.state.activeWorkspace === 2 ? this.WebyBlocks.exportXml(this.workspaceRef2.current.workspace) : this.state.workspaceReg2}</div>
+                <div>{this.state.activeWorkspace === 3 ? this.WebyBlocks.exportXml(this.workspaceRef3.current.workspace) : this.state.workspaceReg3}</div>
             </React.Fragment>
         });
     }
@@ -99,20 +102,55 @@ class App extends React.Component {
             </BlocklyComponent>}
             {workspaceShow2 && <BlocklyComponent ref={this.workspaceRef2} readOnly={false} trashcan={true} media={'media/'} move={{ scrollbars: true, drag: true, wheel: true }} initialXml={this.state.workspaceReg2}>
                 <Button text="새 CSS 생성" callbackKey="createCss"></Button>
-                <Block type="cssblock_uniselecter"><Value name="ARG0"><Shadow type="cssargs_textfield"></Shadow></Value></Block>
-                <Block type="cssblock_idselecter"><Value name="ARG0"><Shadow type="cssargs_textfield"></Shadow></Value></Block>
-                <Block type="cssargs_combinator">
+                <Block type="cssblock_uniselecter"></Block>
+                <Block type="cssblock_selecter"></Block>
+                <Block type="cssargs_tagname">
                     <Value name="ARG0">
                         <Shadow type="cssargs_textfield"></Shadow>
                     </Value>
-                    <Value name="ARG2">
+                </Block>
+                <Block type="cssargs_idname">
+                    <Value name="ARG0">
                         <Shadow type="cssargs_textfield"></Shadow>
                     </Value>
                 </Block>
+                <Block type="cssargs_classname">
+                    <Value name="ARG0">
+                        <Shadow type="cssargs_textfield"></Shadow>
+                    </Value>
+                </Block>
+                <Block type="cssargs_pseudoclass"></Block>
+                <Block type="cssargs_structural_pseudoclass1"></Block>
+                <Block type="cssargs_structural_pseudoclass2"></Block>
+                <Block type="cssargs_combinator"></Block>
                 <Block type="cssblock_fontcolor"><Value name="ARG0"><Shadow type="colour_picker"></Shadow></Value></Block>
-                <Block type="cssblock_fontsize"></Block>
+                <Block type="cssblock_fontsize">
+                    <Value name="ARG0"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                </Block>
                 <Block type="cssblock_fontweight"></Block>
                 <Block type="cssblock_fontstyle"></Block>
+                <Block type="cssblock_width">
+                    <Value name="ARG0"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                </Block>
+                <Block type="cssblock_height">
+                    <Value name="ARG0"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                </Block>
+                <Block type="cssblock_margin">
+                    <Value name="ARG0"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                    <Value name="ARG1"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                    <Value name="ARG2"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                    <Value name="ARG3"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                </Block>
+                <Block type="cssblock_padding">
+                    <Value name="ARG0"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                    <Value name="ARG1"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                    <Value name="ARG2"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                    <Value name="ARG3"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                </Block>
+                <Block type="cssblock_border">
+                    <Value name="ARG1"><Shadow type="colour_picker"></Shadow></Value>
+                    <Value name="ARG3"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                </Block>
             </BlocklyComponent>}
             {workspaceShow3 && <BlocklyComponent ref={this.workspaceRef3} readOnly={false} trashcan={true} media={'media/'} move={{ scrollbars: true, drag: true, wheel: true }} initialXml={this.state.workspaceReg3}>
                 <Category name="새 JS 생성" colour="45">
@@ -438,6 +476,7 @@ class App extends React.Component {
 
     componentDidMount() {
         this.WebyBlocks.createHatBlock(this.workspaceRef1.current.workspace, 1, 'index', false);
+        this.WebyBlocks.clearUndoStack();
         this._regToolboxCallback(this.state.activeWorkspace);
     }
 

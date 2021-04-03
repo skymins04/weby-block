@@ -11,6 +11,10 @@ class WebyCore {
         this.needReflash = false;
     }
 
+    clearUndoStack() {
+        Blockly.mainWorkspace.clearUndo();
+    }
+    
     exportXml(_workspace) {
         return Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(_workspace));
     }
@@ -20,37 +24,34 @@ class WebyCore {
     }
 
     createHatBlock(_workspace, _s, _name = undefined, _deletable = true) {
-        var _list;
         var _blockCount;
         var _text = [null,null,null];
         switch(_s) {
             case 1:
-                _list = this.htmlList;
                 _blockCount = this.htmlBlockCount;
                 _text[0] = 'htmlblock_main_';
                 _text[1] = 'HTML';
                 _text[2] = '.html)';
             break;
             case 2:
-                _list = this.cssList;
                 _blockCount = this.cssBlockCount;
                 _text[0] = 'cssblock_main_';
                 _text[1] = 'CSS';
                 _text[2] = '.css)';
             break;
             case 3:
-                _list = this.jsList;
                 _blockCount = this.jsBlockCount;
                 _text[0] = 'jsblock_main_';
                 _text[1] = 'JS';
                 _text[2] = '.js)';
             break;
+            default: break;
         }
         if(!_name) _name = window.prompt(_text[1]+'블럭의 이름을 지어주세요');
-        if(_name != 'undefined' && _name != undefined) {
+        if(_name !== 'undefined' && _name !== undefined) {
             var _type = _text[0] + _name;
             var _msg = _text[1]+' (' + _name + _text[2];
-            if(_s == 1) {
+            if(_s === 1) {
                 Blockly.Blocks[_type] = {
                     init: function() {
                         this.jsonInit({
@@ -75,7 +76,7 @@ class WebyCore {
                         "message0": _msg,
                         "message1": "%1",
                         "args1": [{"type": "input_statement", "name": "INNER0"}],
-                        "colour": _s == 2 ? 210 : 45,
+                        "colour": _s === 2 ? 210 : 45,
                         "style": {
                             "hat": "cap"
                         }
@@ -85,20 +86,21 @@ class WebyCore {
             
             switch(_s) {
                 case 1:
-                    if(_blockCount == 0) this.htmlList = [];
+                    if(_blockCount === 0) this.htmlList = [];
                     this.htmlList.push(_name);
                     this.htmlBlockCount += 1;
                 break;
                 case 2:
-                    if(_blockCount == 0) this.cssList = [];
+                    if(_blockCount === 0) this.cssList = [];
                     this.cssList.push(_name);
                     this.cssBlockCount += 1;
                 break;
                 case 3:
-                    if(_blockCount == 0) this.jsList = [];
+                    if(_blockCount === 0) this.jsList = [];
                     this.jsList.push(_name);
                     this.jsBlockCount += 1;
                 break;
+                default: break;
             }
             
 
