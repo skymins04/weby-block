@@ -3,14 +3,16 @@ import React from 'react';
 import Blockly from 'blockly/core';
 import locale from 'blockly/msg/ko';
 import 'blockly/blocks';
+import './WebyRenderer';
 
 import './BlocklyComponent.css';
  
 Blockly.setLocale(locale);
- 
+
 class BlocklyComponent extends React.Component {
     constructor(props) {
         super(props);
+        
         this.blocklyDiv = React.createRef();
         this.toolbox = React.createRef();
     }
@@ -21,7 +23,7 @@ class BlocklyComponent extends React.Component {
             this.blocklyDiv.current,
             {
                 toolbox: this.toolbox.current,
-                renderer: 'zelos',
+                renderer: 'weby',
                 zoom: {
                     controls: true,
                     startScale: 0.65

@@ -3,3 +3,8 @@ h2 { position: absolute; bottom: 34%; left: 20px;}
 #xmlViewer { position: absolute; bottom: 0; width: calc(100% - 40px); height: 32%; margin: 20px; border: 2px dashed gray; }
 #xmlViewer > div { margin: 20px 0; }
 .hidden {display: none;}
+
+.blocklyFlyoutButton .blocklyText {font-size: 20px !important;}
+.themeHtml {fill: #a55c5b;}
+.themeCss {fill: #5b80a5;}
+.themeJs {fill: #a5935b}

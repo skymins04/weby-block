@@ -14,6 +14,13 @@ class WebyCore {
     clearUndoStack() {
         Blockly.mainWorkspace.clearUndo();
     }
+
+    undo() {
+        Blockly.mainWorkspace.undo(false);
+    }
+    redo() {
+        Blockly.mainWorkspace.undo(true);
+    }
     
     exportXml(_workspace) {
         return Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(_workspace));

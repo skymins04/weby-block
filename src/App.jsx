@@ -83,9 +83,10 @@ class App extends React.Component {
             <button onClick={() => this._switchWorkspace(3)}>JS</button>
             <button onClick={() => this._exportXmls()}>Export XML</button>
             <button onClick={() => this._viewHeadblockList()}>View HB List</button>
+            <button onClick={() => {console.log(this.workspaceRef2.current.workspace.getUndoStack())}}>Get Undo Stack</button>
 
             {workspaceShow1 && <BlocklyComponent ref={this.workspaceRef1} readOnly={false} trashcan={true} media={'media/'} move={{ scrollbars: true, drag: true, wheel: true }} initialXml={this.state.workspaceReg1}>
-                <Button text="새 HTML 생성" callbackKey="createHtml"></Button>
+                <Button web-class="themeHtml" text="새 HTML 생성" callbackKey="createHtml"></Button>
                 <Label text="태그 블럭들"></Label>
                 <Block type="htmlblock_importcss"></Block>
                 <Block type="htmlblock_importjs"></Block>
@@ -101,60 +102,80 @@ class App extends React.Component {
                 <Block type="htmlalt_id"></Block>
             </BlocklyComponent>}
             {workspaceShow2 && <BlocklyComponent ref={this.workspaceRef2} readOnly={false} trashcan={true} media={'media/'} move={{ scrollbars: true, drag: true, wheel: true }} initialXml={this.state.workspaceReg2}>
-                <Button text="새 CSS 생성" callbackKey="createCss"></Button>
-                <Block type="cssblock_uniselecter"></Block>
-                <Block type="cssblock_selecter"></Block>
-                <Block type="cssargs_tagname">
-                    <Value name="ARG0">
-                        <Shadow type="cssargs_textfield"></Shadow>
-                    </Value>
-                </Block>
-                <Block type="cssargs_idname">
-                    <Value name="ARG0">
-                        <Shadow type="cssargs_textfield"></Shadow>
-                    </Value>
-                </Block>
-                <Block type="cssargs_classname">
-                    <Value name="ARG0">
-                        <Shadow type="cssargs_textfield"></Shadow>
-                    </Value>
-                </Block>
-                <Block type="cssargs_pseudoclass"></Block>
-                <Block type="cssargs_structural_pseudoclass1"></Block>
-                <Block type="cssargs_structural_pseudoclass2"></Block>
-                <Block type="cssargs_combinator"></Block>
-                <Block type="cssblock_fontcolor"><Value name="ARG0"><Shadow type="colour_picker"></Shadow></Value></Block>
-                <Block type="cssblock_fontsize">
-                    <Value name="ARG0"><Shadow type="cssargs_sizefield"></Shadow></Value>
-                </Block>
-                <Block type="cssblock_fontweight"></Block>
-                <Block type="cssblock_fontstyle"></Block>
-                <Block type="cssblock_width">
-                    <Value name="ARG0"><Shadow type="cssargs_sizefield"></Shadow></Value>
-                </Block>
-                <Block type="cssblock_height">
-                    <Value name="ARG0"><Shadow type="cssargs_sizefield"></Shadow></Value>
-                </Block>
-                <Block type="cssblock_margin">
-                    <Value name="ARG0"><Shadow type="cssargs_sizefield"></Shadow></Value>
-                    <Value name="ARG1"><Shadow type="cssargs_sizefield"></Shadow></Value>
-                    <Value name="ARG2"><Shadow type="cssargs_sizefield"></Shadow></Value>
-                    <Value name="ARG3"><Shadow type="cssargs_sizefield"></Shadow></Value>
-                </Block>
-                <Block type="cssblock_padding">
-                    <Value name="ARG0"><Shadow type="cssargs_sizefield"></Shadow></Value>
-                    <Value name="ARG1"><Shadow type="cssargs_sizefield"></Shadow></Value>
-                    <Value name="ARG2"><Shadow type="cssargs_sizefield"></Shadow></Value>
-                    <Value name="ARG3"><Shadow type="cssargs_sizefield"></Shadow></Value>
-                </Block>
-                <Block type="cssblock_border">
-                    <Value name="ARG1"><Shadow type="colour_picker"></Shadow></Value>
-                    <Value name="ARG3"><Shadow type="cssargs_sizefield"></Shadow></Value>
-                </Block>
+                <Category name="선택자" colour="210">
+                    <Button web-class="themeCss" text="새 CSS 생성" callbackKey="createCss"></Button>
+                    <Block type="cssblock_uniselecter"></Block>
+                    <Block type="cssblock_selecter"></Block>
+                    <Block type="cssargs_tagname">
+                        <Value name="ARG0">
+                            <Shadow type="cssargs_textfield"></Shadow>
+                        </Value>
+                    </Block>
+                    <Block type="cssargs_idname">
+                        <Value name="ARG0">
+                            <Shadow type="cssargs_textfield"></Shadow>
+                        </Value>
+                    </Block>
+                    <Block type="cssargs_classname">
+                        <Value name="ARG0">
+                            <Shadow type="cssargs_textfield"></Shadow>
+                        </Value>
+                    </Block>
+                    <Block type="cssargs_pseudoclass"></Block>
+                    <Block type="cssargs_structural_pseudoclass1"></Block>
+                    <Block type="cssargs_structural_pseudoclass2"></Block>
+                    <Block type="cssargs_combinator"></Block>
+                    <Block type="colour_picker"></Block>
+                </Category>
+                <Category name="요소크기" colour="210">
+                    <Block type="cssblock_width">
+                        <Value name="ARG0"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                    </Block>
+                    <Block type="cssblock_height">
+                        <Value name="ARG0"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                    </Block>
+                    <Block type="cssblock_margin">
+                        <Value name="ARG0"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                        <Value name="ARG1"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                        <Value name="ARG2"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                        <Value name="ARG3"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                    </Block>
+                    <Block type="cssblock_padding">
+                        <Value name="ARG0"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                        <Value name="ARG1"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                        <Value name="ARG2"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                        <Value name="ARG3"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                    </Block>
+                    <Block type="cssblock_border">
+                        <Value name="ARG1"><Shadow type="colour_picker"></Shadow></Value>
+                        <Value name="ARG3"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                    </Block>
+                </Category>
+                <Category name="문자" colour="210">
+                    <Block type="cssblock_fontcolor"><Value name="ARG0"><Shadow type="colour_picker"></Shadow></Value></Block>
+                    <Block type="cssblock_fontsize">
+                        <Value name="ARG0"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                    </Block>
+                    <Block type="cssblock_fontweight"></Block>
+                    <Block type="cssblock_fontstyle"></Block>
+                    <Block type="cssblock_textdecoration"></Block>
+                    <Block type="cssblock_texttransform"></Block>
+                    <Block type="cssblock_wordwrap"></Block>
+                    <Block type="cssblock_textalign"></Block>
+                    <Block type="cssblock_letterspacing">
+                        <Value name="ARG0"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                    </Block>
+                    <Block type="cssblock_wordspacing">
+                        <Value name="ARG0"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                    </Block>
+                    <Block type="cssblock_textindent">
+                        <Value name="ARG0"><Shadow type="cssargs_sizefield"></Shadow></Value>
+                    </Block>
+                </Category>
             </BlocklyComponent>}
             {workspaceShow3 && <BlocklyComponent ref={this.workspaceRef3} readOnly={false} trashcan={true} media={'media/'} move={{ scrollbars: true, drag: true, wheel: true }} initialXml={this.state.workspaceReg3}>
                 <Category name="새 JS 생성" colour="45">
-                    <Button text="새 JS 생성" callbackKey="createJs"></Button>
+                    <Button web-class="themeJs" text="새 JS 생성" callbackKey="createJs"></Button>
                 </Category>
                 <Sep></Sep>
                 <Category name="논리" colour="%{BKY_LOGIC_HUE}">
