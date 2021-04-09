@@ -188,6 +188,15 @@ class WebyBlocks extends WebyCore {
                 "colour": "210"
             },
             {
+                "type": "cssargs_colourfield",
+                "message0": "%1",
+                "args0": [
+                    {"type": "field_colour_ext", "name": "ARG0", "colour": "#ff0000"}
+                ],
+                "output": "CssSize",
+                "colour": "210"
+            },
+            {
                 "type": "cssargs_tagname",
                 "message0": "%1",
                 "args0": [

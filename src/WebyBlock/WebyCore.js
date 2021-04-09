@@ -1,5 +1,7 @@
 import Blockly from 'blockly/core';
 
+import FieldColourExt from './field_colour_ext';
+
 class WebyCore {
     constructor() {
         this.htmlList = [''];
