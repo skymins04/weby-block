@@ -9,8 +9,8 @@ class WebyBlocks extends WebyCore {
         this.defBlocksJs();
     }
 
-    private _importBlockGenerateOptions(_s: number): string[] {
-        let _list = [];
+    private _importBlockGenerateOptions(_s: number): string[][] {
+        let _list: string[] = [];
         // tslint:disable-next-line: prefer-const
         let _opt = [];
         switch(_s) {
@@ -136,8 +136,8 @@ class WebyBlocks extends WebyCore {
                 }
             ]);
         }
-        Blockly.Blocks.htmlblock_importcss = {
-            init() {
+        (Blockly as any).Blocks.htmlblock_importcss = {
+            init: function(): void {
                 this.jsonInit({
                     "nextStatement": null,
                     "previousStatement": null,
@@ -150,8 +150,8 @@ class WebyBlocks extends WebyCore {
 
             generateOptions: () => {return this._importBlockGenerateOptions(2);}
         };
-        Blockly.Blocks.htmlblock_importjs = {
-            init() {
+        (Blockly as any).Blocks.htmlblock_importjs = {
+            init: function(): void {
                 this.jsonInit({
                     "nextStatement": null,
                     "previousStatement": null,
@@ -627,13 +627,13 @@ class WebyBlocks extends WebyCore {
             }
         ]);
 
-        Blockly.Blocks.cssblock_textdecoration = {
+        (Blockly as any).Blocks.cssblock_textdecoration = {
             validate(_newValue: any): any {
                 this.getSourceBlock().updateConnections(_newValue);
                 return _newValue;
             },
 
-            init(): void {
+            init: function(): void {
                 const _opt = [
                     ["사용안함", "0"],
                     ["사용", "1"]

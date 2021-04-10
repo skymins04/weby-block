@@ -1,3 +1,4 @@
+//WebyCore.ts
 import Blockly from 'blockly/core';
 
 class WebyCore {
@@ -35,10 +36,10 @@ class WebyCore {
     }
 
     // tslint:disable-next-line: no-unnecessary-initializer
-    createHatBlock(_workspace: any, _s: number, _name: string | undefined = undefined, _deletable: boolean = true): void {
-        let _blockCount: number;
+    createHatBlock(_workspace: any, _s: number, _name: any = undefined, _deletable: boolean = true): void {
+        let _blockCount: number = 0;
         // tslint:disable-next-line: prefer-const
-        let _text: string[];
+        let _text: string[] = ['', '', ''];
         switch(_s) {
             case 1:
                 _blockCount = this.htmlBlockCount;
@@ -65,8 +66,8 @@ class WebyCore {
             const _type: string = _text[0] + _name;
             const _msg: string = _text[1]+' (' + _name + _text[2];
             if(_s === 1) {
-                Blockly.Blocks[_type] = {
-                    init() {
+                (Blockly as any).Blocks[_type] = {
+                    init: function(): void {
                         this.jsonInit({
                             "message0": _msg,
                             "message1": "헤드 %1",
