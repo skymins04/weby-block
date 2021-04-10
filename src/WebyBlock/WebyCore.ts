@@ -1,12 +1,12 @@
-//WebyCore.ts
+// WebyCore.ts
 import Blockly from 'blockly/core';
 
 class WebyCore {
-    protected htmlList:string[] = [''];
+    protected htmlList:string[] = ['HTML블럭을 생성해주세요'];
 
-    protected cssList:string[] = [''];
+    protected cssList:string[] = ['CSS블럭을 생성해주세요'];
 
-    protected jsList:string[] = [''];
+    protected jsList:string[] = ['JS블럭을 생성해주세요'];
 
     protected htmlBlockCount:number = 0;
 
@@ -67,7 +67,7 @@ class WebyCore {
             const _msg: string = _text[1]+' (' + _name + _text[2];
             if(_s === 1) {
                 (Blockly as any).Blocks[_type] = {
-                    init: function(): void {
+                    init(): void {
                         this.jsonInit({
                             "message0": _msg,
                             "message1": "헤드 %1",

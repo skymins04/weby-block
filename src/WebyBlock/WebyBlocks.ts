@@ -137,7 +137,7 @@ class WebyBlocks extends WebyCore {
             ]);
         }
         (Blockly as any).Blocks.htmlblock_importcss = {
-            init: function(): void {
+            init(): void {
                 this.jsonInit({
                     "nextStatement": null,
                     "previousStatement": null,
@@ -151,7 +151,7 @@ class WebyBlocks extends WebyCore {
             generateOptions: () => {return this._importBlockGenerateOptions(2);}
         };
         (Blockly as any).Blocks.htmlblock_importjs = {
-            init: function(): void {
+            init(): void {
                 this.jsonInit({
                     "nextStatement": null,
                     "previousStatement": null,
@@ -633,7 +633,7 @@ class WebyBlocks extends WebyCore {
                 return _newValue;
             },
 
-            init: function(): void {
+            init(): void {
                 const _opt = [
                     ["사용안함", "0"],
                     ["사용", "1"]
