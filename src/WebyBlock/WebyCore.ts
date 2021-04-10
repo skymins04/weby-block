@@ -45,19 +45,19 @@ class WebyCore {
                 _text[0] = 'htmlblock_main_';
                 _text[1] = 'HTML';
                 _text[2] = '.html)';
-            break;
+                break;
             case 2:
                 _blockCount = this.cssBlockCount;
                 _text[0] = 'cssblock_main_';
                 _text[1] = 'CSS';
                 _text[2] = '.css)';
-            break;
+                break;
             case 3:
                 _blockCount = this.jsBlockCount;
                 _text[0] = 'jsblock_main_';
                 _text[1] = 'JS';
                 _text[2] = '.js)';
-            break;
+                break;
             default: break;
         }
         if(!_name) _name = window.prompt(_text[1]+'블럭의 이름을 지어주세요');
@@ -102,17 +102,17 @@ class WebyCore {
                     if(_blockCount === 0) this.htmlList = [];
                     this.htmlList.push(_name);
                     this.htmlBlockCount += 1;
-                break;
+                    break;
                 case 2:
                     if(_blockCount === 0) this.cssList = [];
                     this.cssList.push(_name);
                     this.cssBlockCount += 1;
-                break;
+                    break;
                 case 3:
                     if(_blockCount === 0) this.jsList = [];
                     this.jsList.push(_name);
                     this.jsBlockCount += 1;
-                break;
+                    break;
                 default: break;
             }
 

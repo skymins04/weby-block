@@ -9,19 +9,27 @@ class WebyBlocks extends WebyCore {
         this.defBlocksJs();
     }
 
-    _importBlockGenerateOptions(_s) {
-        var _list = [], _opt = [];
+    private _importBlockGenerateOptions(_s: number): string[] {
+        let _list = [];
+        // tslint:disable-next-line: prefer-const
+        let _opt = [];
         switch(_s) {
-            case 1: _list = this.htmlList; break;
-            case 2: _list = this.cssList; break;
-            case 3: _list = this.jsList; break;
+            case 1:
+                _list = this.htmlList;
+                break;
+            case 2:
+                _list = this.cssList;
+                break;
+            case 3:
+                _list = this.jsList;
+                break;
             default: break;
         }
-        for(var i = 0; i < _list.length; i++) _opt.push([_list[i].toString(), i.toString()]);
+        for(let i = 0; i < _list.length; i++) _opt.push([_list[i].toString(), i.toString()]);
         return _opt;
     }
 
-    defBlocksHtml(_reflashmode = false) {
+    defBlocksHtml(_reflashmode:boolean = false): void {
         if(!_reflashmode) {
             Blockly.defineBlocksWithJsonArray([
                 {
@@ -128,8 +136,8 @@ class WebyBlocks extends WebyCore {
                 }
             ]);
         }
-        Blockly.Blocks['htmlblock_importcss'] = {
-            init: function() {
+        Blockly.Blocks.htmlblock_importcss = {
+            init() {
                 this.jsonInit({
                     "nextStatement": null,
                     "previousStatement": null,
@@ -139,11 +147,11 @@ class WebyBlocks extends WebyCore {
                     .appendField('CSS연결')
                     .appendField(new Blockly.FieldDropdown(this.generateOptions), 'FILE');
             },
-        
+
             generateOptions: () => {return this._importBlockGenerateOptions(2);}
         };
-        Blockly.Blocks['htmlblock_importjs'] = {
-            init: function() {
+        Blockly.Blocks.htmlblock_importjs = {
+            init() {
                 this.jsonInit({
                     "nextStatement": null,
                     "previousStatement": null,
@@ -158,7 +166,7 @@ class WebyBlocks extends WebyCore {
         if(_reflashmode) this.needReflash = false;
     }
 
-    defBlocksCss() {
+    defBlocksCss(): void {
         Blockly.defineBlocksWithJsonArray([
             {
                 "type": "cssargs_textfield",
@@ -618,15 +626,15 @@ class WebyBlocks extends WebyCore {
                 "colour": "210"
             }
         ]);
-        
-        Blockly.Blocks['cssblock_textdecoration'] = {
-            validate: function(newValue) {
-                this.getSourceBlock().updateConnections(newValue);
-                return newValue;
+
+        Blockly.Blocks.cssblock_textdecoration = {
+            validate(_newValue: any): any {
+                this.getSourceBlock().updateConnections(_newValue);
+                return _newValue;
             },
 
-            init: function() {
-                var _opt = [
+            init(): void {
+                const _opt = [
                     ["사용안함", "0"],
                     ["사용", "1"]
                 ];
@@ -641,13 +649,13 @@ class WebyBlocks extends WebyCore {
                     .appendField(new Blockly.FieldDropdown(_opt, this.validate), 'ARG0');
             },
 
-            updateConnections: function(newValue) {
-                var _height = [
+            updateConnections(_newValue: string): void {
+                const _height = [
                     ["아래쪽", "0"],
                     ["위쪽", "1"],
                     ["중간", "2"]
                 ];
-                var _style = [
+                const _style = [
                     ["실선", "0"],
                     ["이중선", "1"],
                     ["점선", "2"],
@@ -656,7 +664,7 @@ class WebyBlocks extends WebyCore {
                 ];
                 this.removeInput('OPT1', true);
                 this.removeInput('OPT2', true);
-                if(newValue === '1') {
+                if(_newValue === '1') {
                     this.appendDummyInput('OPT1')
                         .appendField('(')
                         .appendField(new Blockly.FieldDropdown(_height), 'ARG1')
@@ -669,9 +677,7 @@ class WebyBlocks extends WebyCore {
         };
     }
 
-    defBlocksJs() {
-        
-    }
+    defBlocksJs(): void {}
 }
 
 export default WebyBlocks;
