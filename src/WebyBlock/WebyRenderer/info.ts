@@ -3,21 +3,25 @@ import { WebyTopRow, WebyBottomRow } from './measurables/rows';
 import WebyRightConnectionShape from './measurables/row_elements';
 
 class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
-    constructor(renderer, block) {
+    // eslint-disable-next-line @typescript-eslint/no-useless-constructor
+    constructor(renderer: any, block: any) {
         super(renderer, block);
-        this.topRow = new WebyTopRow(this.constants_);
-        this.bottomRow = new WebyBottomRow(this.constants_);
-        this.isInline = true;
         this.isMultiRow = !block.getInputsInline() || block.isCollapsed();
-        this.hasStatementInput = block.statementInputCount > 0;
-        this.rightSide = this.outputConnection ? new WebyRightConnectionShape(this.constants_) : null;
+        this.hasStatementInput= block.statementInputCount > 0;
     }
 
-    getRenderer() {
-        return (this.renderer_);
+    topRow: WebyTopRow = new WebyTopRow(this.constants_);
+    bottomRow: WebyBottomRow = new WebyBottomRow(this.constants_);
+    isInline: boolean = true;
+    isMultiRow: boolean = false;
+    hasStatementInput: boolean = false;
+    rightSide: WebyRightConnectionShape | any = this.outputConnection ? new WebyRightConnectionShape(this.constants_) : null;
+
+    getRenderer(): Blockly.blockRendering.Renderer {
+        return this.renderer_;
     }
 
-    measure() {
+    measure(): void {
         this.createRows_();
         this.addElemSpacing_();
         this.addRowSpacing_();
@@ -27,7 +31,7 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         this.finalize_();
     }
 
-    shouldStartNewRow_(input, lastInput) {
+    shouldStartNewRow_(input: any, lastInput: any): boolean {
         if (!lastInput) {
             return false;
         }
@@ -41,24 +45,24 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         return false;
     }
 
-    getDesiredRowWidth_(row) {
+    getDesiredRowWidth_(row: any): number {
         if (row.hasStatement) {
-            var rightCornerWidth = this.constants_.INSIDE_CORNERS.rightWidth || 0;
-            return this.width - this.startX - rightCornerWidth;
+            const rightCornerWidth: number = (this.constants_.INSIDE_CORNERS as any).rightWidth || 0;
+            return this.width - rightCornerWidth;
         }
         return super.getDesiredRowWidth_(row);
     }
 
-    getInRowSpacing_(prev, next) {
+    getInRowSpacing_(prev: any, next: any): number {
         if (!prev || !next) {
-            if (this.outputConnection && this.outputConnection.isDynamicShape &&
+            if (this.outputConnection && (this.outputConnection as any).isDynamicShape &&
                 !this.hasStatementInput && !this.bottomRow.hasNextConnection) {
                 return this.constants_.NO_PADDING;
             }
         }
         if (!prev) {
             if (next && Blockly.blockRendering.Types.isStatementInput(next)) {
-                return this.constants_.STATEMENT_INPUT_PADDING_LEFT;
+                return (this.constants_ as any).STATEMENT_INPUT_PADDING_LEFT;
             }
         }
         if (prev && Blockly.blockRendering.Types.isLeftRoundedCorner(prev) && next) {
@@ -74,18 +78,18 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         return this.constants_.MEDIUM_PADDING;
     }
 
-    getSpacerRowHeight_(prev, next) {
+    getSpacerRowHeight_(prev: any, next: any): number {
         if (Blockly.blockRendering.Types.isTopRow(prev) &&
             Blockly.blockRendering.Types.isBottomRow(next)) {
-            return this.constants_.EMPTY_BLOCK_SPACER_HEIGHT;
+            return (this.constants_ as any).EMPTY_BLOCK_SPACER_HEIGHT;
         }
-        var followsStatement =
+        const followsStatement: boolean =
             Blockly.blockRendering.Types.isInputRow(prev) && prev.hasStatement;
-        var precedesStatement =
+        const precedesStatement: boolean =
             Blockly.blockRendering.Types.isInputRow(next) && next.hasStatement;
         if (precedesStatement || followsStatement) {
-            var cornerHeight = this.constants_.INSIDE_CORNERS.rightHeight || 0;
-            var height = Math.max(this.constants_.NOTCH_HEIGHT, cornerHeight);
+            const cornerHeight: number = (this.constants_.INSIDE_CORNERS as any).rightHeight || 0;
+            const height: number = Math.max(this.constants_.NOTCH_HEIGHT, cornerHeight);
             return precedesStatement && followsStatement ?
                 Math.max(height, this.constants_.DUMMY_INPUT_MIN_HEIGHT) : height;
         }
@@ -99,7 +103,7 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         }
         if ((Blockly.blockRendering.Types.isBottomRow(next))) {
             if (!this.outputConnection) {
-                var topHeight = Math.max(this.topRow.minHeight,
+                const topHeight: number = Math.max(this.topRow.minHeight,
                     Math.max(this.constants_.NOTCH_HEIGHT,
                         this.constants_.CORNER_RADIUS)) - this.constants_.CORNER_RADIUS;
                 return topHeight;
@@ -112,22 +116,22 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         return this.constants_.MEDIUM_PADDING;
     }
 
-    getSpacerRowWidth_(prev, next) {
-        var width = this.width - this.startX;
+    getSpacerRowWidth_(prev: any, next: any): number {
+        const width = this.width - (this as any).startX;
         if ((Blockly.blockRendering.Types.isInputRow(prev) && prev.hasStatement) ||
             (Blockly.blockRendering.Types.isInputRow(next) && next.hasStatement)) {
-            return Math.max(width, this.constants_.STATEMENT_INPUT_SPACER_MIN_WIDTH);
+            return Math.max(width, (this.constants_ as any).STATEMENT_INPUT_SPACER_MIN_WIDTH);
         }
         return width;
     }
 
-    getElemCenterline_(row, elem) {
+    getElemCenterline_(row: any, elem: Blockly.blockRendering.Row | Blockly.blockRendering.Measurable): number {
         if (row.hasStatement && !Blockly.blockRendering.Types.isSpacer(elem) &&
             !Blockly.blockRendering.Types.isStatementInput(elem)) {
             return row.yPos + this.constants_.EMPTY_STATEMENT_INPUT_HEIGHT / 2;
         }
         if (Blockly.blockRendering.Types.isInlineInput(elem)) {
-            var connectedBlock = elem.connectedBlock;
+            const connectedBlock: any = (elem as any).connectedBlock;
             if (connectedBlock && connectedBlock.outputConnection &&
                 connectedBlock.nextConnection) {
                 return row.yPos + connectedBlock.height / 2;
@@ -136,7 +140,7 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         return super.getElemCenterline_(row, elem);
     }
 
-    addInput_(input, activeRow) {
+    addInput_(input: any, activeRow: any): void {
         if (input.type === Blockly.DUMMY_INPUT && activeRow.hasDummyInput &&
             activeRow.align === Blockly.ALIGN_LEFT &&
             input.align === Blockly.ALIGN_RIGHT) {
@@ -145,10 +149,11 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         super.addInput_(input, activeRow);
     }
 
-    addAlignmentPadding_(row, missingSpace) {
+    addAlignmentPadding_(row: any, missingSpace: any): void {
         if (row.rightAlignedDummyInput) {
-            var alignmentDivider;
-            for (var i = 0, elem;
+            let alignmentDivider: any;
+            for (let i: number = 0, elem: any;
+                // tslint:disable-next-line: no-conditional-assignment
                 (elem = row.elements[i]); i++) {
                 if (Blockly.blockRendering.Types.isSpacer(elem)) {
                     alignmentDivider = elem;
@@ -167,27 +172,28 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         super.addAlignmentPadding_(row, missingSpace);
     }
 
-    adjustXPosition_() {
-        var notchTotalWidth = this.constants_.NOTCH_OFFSET_LEFT + this.constants_.NOTCH_WIDTH;
-        var minXPos = notchTotalWidth;
-        for (var i = 2; i < this.rows.length - 1; i += 2) {
-            var prevSpacer = this.rows[i - 1];
-            var row = this.rows[i];
-            var nextSpacer = this.rows[i + 1];
+    adjustXPosition_(): void {
+        const notchTotalWidth: number = this.constants_.NOTCH_OFFSET_LEFT + this.constants_.NOTCH_WIDTH;
+        let minXPos: number = notchTotalWidth;
+        for (let i = 2; i < this.rows.length - 1; i += 2) {
+            const prevSpacer: any = this.rows[i - 1];
+            const row: any = this.rows[i];
+            const nextSpacer: any = this.rows[i + 1];
 
-            var hasPrevNotch = i === 2 ?
-                !!this.topRow.hasPreviousConnection : !!prevSpacer.followsStatement;
-            var hasNextNotch = i + 2 >= this.rows.length - 1 ?
-                !!this.bottomRow.hasNextConnection : !!nextSpacer.precedesStatement;
+            const hasPrevNotch: boolean = i === 2 ?
+                !!this.topRow.hasPreviousConnection : !!(prevSpacer as any).followsStatement;
+            const hasNextNotch: boolean = i + 2 >= this.rows.length - 1 ?
+                !!this.bottomRow.hasNextConnection : !!(nextSpacer as any).precedesStatement;
 
             if (Blockly.blockRendering.Types.isInputRow(row) && row.hasStatement) {
                 row.measure();
-                minXPos = row.width - row.getLastInput().width + notchTotalWidth;
+                minXPos = row.width - (row.getLastInput() as any).width + notchTotalWidth;
             } else if (hasPrevNotch && (i === 2 || hasNextNotch) &&
                 Blockly.blockRendering.Types.isInputRow(row) && !row.hasStatement) {
-                var xCursor = row.xPos;
-                var prevInRowSpacer = null;
-                for (var j = 0, elem;
+                let xCursor: number = row.xPos;
+                let prevInRowSpacer: any = null;
+                for (let j: number = 0, elem: any;
+                    // tslint:disable-next-line: no-conditional-assignment
                     (elem = row.elements[j]); j++) {
                     if (Blockly.blockRendering.Types.isSpacer(elem)) {
                         prevInRowSpacer = elem;
@@ -196,41 +202,42 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
                             Blockly.blockRendering.Types.isInput(elem))) {
                         if (xCursor < minXPos &&
                             !(Blockly.blockRendering.Types.isField(elem) &&
-                                (elem.field instanceof Blockly.FieldLabel ||
-                                    elem.field instanceof Blockly.FieldImage))) {
-                            var difference = minXPos - xCursor;
+                                ((elem as any).field instanceof Blockly.FieldLabel ||
+                                    (elem as any).field instanceof Blockly.FieldImage))) {
+                            const difference = minXPos - xCursor;
                             prevInRowSpacer.width += difference;
                         }
                     }
-                    xCursor += elem.width;
+                    xCursor += (elem as any).width;
                 }
             }
         }
     }
 
-    finalizeOutputConnection_() {
-        if (!this.outputConnection || !this.outputConnection.isDynamicShape) {
+    finalizeOutputConnection_(): void {
+        if (!this.outputConnection || !(this.outputConnection as any).isDynamicShape) {
             return;
         }
-        var yCursor = 0;
-        for (var i = 0, row;
+        let yCursor = 0;
+        for (let i: number = 0, row: any;
+            // tslint:disable-next-line: no-conditional-assignment
             (row = this.rows[i]); i++) {
             row.yPos = yCursor;
             yCursor += row.height;
         }
         this.height = yCursor;
 
-        var blockHeight = this.bottomRow.hasNextConnection ? this.height - this.bottomRow.descenderHeight : this.height;
-        var connectionHeight = this.outputConnection.shape.height(blockHeight);
-        var connectionWidth = this.outputConnection.shape.width(blockHeight);
+        const blockHeight: number = this.bottomRow.hasNextConnection ? this.height - this.bottomRow.descenderHeight : this.height;
+        const connectionHeight: number = (this.outputConnection as any).shape.height(blockHeight);
+        const connectionWidth: number = (this.outputConnection as any).shape.width(blockHeight);
 
-        this.outputConnection.height = connectionHeight;
-        this.outputConnection.width = connectionWidth;
-        this.outputConnection.startX = connectionWidth;
-        this.outputConnection.connectionOffsetY = this.outputConnection.shape.connectionOffsetY(connectionHeight);
-        this.outputConnection.connectionOffsetX = this.outputConnection.shape.connectionOffsetX(connectionWidth);
+        (this.outputConnection as any).height = connectionHeight;
+        (this.outputConnection as any).width = connectionWidth;
+        (this.outputConnection as any).startX = connectionWidth;
+        (this.outputConnection as any).connectionOffsetY = (this.outputConnection as any).shape.connectionOffsetY(connectionHeight);
+        (this.outputConnection as any).connectionOffsetX = (this.outputConnection as any).shape.connectionOffsetX(connectionWidth);
 
-        var rightConnectionWidth = 0;
+        let rightConnectionWidth: number = 0;
         if (!this.hasStatementInput && !this.bottomRow.hasNextConnection) {
             rightConnectionWidth = connectionWidth;
             this.rightSide.height = connectionHeight;
@@ -238,29 +245,30 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
             this.rightSide.centerline = connectionHeight / 2;
             this.rightSide.xPos = this.width + rightConnectionWidth;
         }
-        this.startX = connectionWidth;
+        (this as any).startX = connectionWidth;
         this.width += connectionWidth + rightConnectionWidth;
         this.widthWithChildren += connectionWidth + rightConnectionWidth;
     }
 
-    finalizeHorizontalAlignment_() {
+    finalizeHorizontalAlignment_(): void {
         if (!this.outputConnection || this.hasStatementInput ||
             this.bottomRow.hasNextConnection) {
             return;
         }
-        var totalNegativeSpacing = 0;
-        for (var i = 0, row;
+        let totalNegativeSpacing = 0;
+        for (let i: number = 0, row: any;
+            // tslint:disable-next-line: no-conditional-assignment
             (row = this.rows[i]); i++) {
             if (!Blockly.blockRendering.Types.isInputRow(row)) {
                 continue;
             }
-            var firstElem = row.elements[1];
-            var lastElem = row.elements[row.elements.length - 2];
-            var leftNegPadding = this.getNegativeSpacing_(firstElem);
-            var rightNegPadding = this.getNegativeSpacing_(lastElem);
+            const firstElem: any = row.elements[1];
+            const lastElem: any = row.elements[row.elements.length - 2];
+            let leftNegPadding: number = this.getNegativeSpacing_(firstElem);
+            let rightNegPadding: number = this.getNegativeSpacing_(lastElem);
             totalNegativeSpacing = leftNegPadding + rightNegPadding;
-            var minBlockWidth = this.constants_.MIN_BLOCK_WIDTH +
-                this.outputConnection.width * 2;
+            const minBlockWidth: number = this.constants_.MIN_BLOCK_WIDTH +
+                (this.outputConnection as any).width * 2;
             if (this.width - totalNegativeSpacing < minBlockWidth) {
                 totalNegativeSpacing = this.width - minBlockWidth;
                 leftNegPadding = totalNegativeSpacing / 2;
@@ -276,7 +284,8 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
             this.width -= totalNegativeSpacing;
             this.widthWithChildren -= totalNegativeSpacing;
             this.rightSide.xPos -= totalNegativeSpacing;
-            for (var i = 0, row;
+            for (let i: number = 0, row: any;
+                // tslint:disable-next-line: no-conditional-assignment
                 (row = this.rows[i]); i++) {
                 if (Blockly.blockRendering.Types.isTopOrBottomRow(row)) {
                     row.elements[1].width -= totalNegativeSpacing;
@@ -288,20 +297,20 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         }
     }
 
-    getNegativeSpacing_(elem) {
+    getNegativeSpacing_(elem: Blockly.blockRendering.Measurable): number {
         if (!elem) {
             return 0;
         }
-        var connectionWidth = this.outputConnection.width;
-        var outerShape = this.outputConnection.shape.type;
-        var constants = this.constants_;
+        const connectionWidth: number = (this.outputConnection as any).width;
+        const outerShape: any = (this.outputConnection as any).shape.type;
+        const constants: Blockly.blockRendering.ConstantProvider = this.constants_;
         if (this.isMultiRow && this.inputRows.length > 1) {
             switch (outerShape) {
                 case constants.SHAPES.ROUND:
-                    var maxWidth = this.constants_.MAX_DYNAMIC_CONNECTION_SHAPE_WIDTH;
-                    var width = this.height / 2 > maxWidth ? maxWidth : this.height / 2;
-                    var topPadding = this.constants_.SMALL_PADDING;
-                    var roundPadding = width *
+                    const maxWidth: number = (this.constants_ as any).MAX_DYNAMIC_CONNECTION_SHAPE_WIDTH;
+                    const width: number = this.height / 2 > maxWidth ? maxWidth : this.height / 2;
+                    const topPadding: number = this.constants_.SMALL_PADDING;
+                    const roundPadding: number = width *
                         (1 - Math.sin(Math.acos((width - topPadding) / width)));
                     return connectionWidth - roundPadding;
                 default:
@@ -309,10 +318,10 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
             }
         }
         if (Blockly.blockRendering.Types.isInlineInput(elem)) {
-            var connectedBlock = elem.connectedBlock;
-            var innerShape = connectedBlock ?
+            const connectedBlock: any = (elem as any).connectedBlock;
+            const innerShape: any = connectedBlock ?
                 connectedBlock.pathObject.outputShapeType :
-                elem.shape.type;
+                (elem as any).shape.type;
             if (connectedBlock && connectedBlock.outputConnection &&
                 (connectedBlock.statementInputCount || connectedBlock.nextConnection)) {
                 return 0;
@@ -321,37 +330,37 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
                 return 0;
             }
             return connectionWidth -
-                this.constants_.SHAPE_IN_SHAPE_PADDING[outerShape][innerShape];
+                (this.constants_ as any).SHAPE_IN_SHAPE_PADDING[outerShape][innerShape];
         } else if (Blockly.blockRendering.Types.isField(elem)) {
             if (outerShape === constants.SHAPES.ROUND &&
-                elem.field instanceof Blockly.FieldTextInput) {
-                return connectionWidth - (2.75 * constants.GRID_UNIT);
+                (elem as any).field instanceof Blockly.FieldTextInput) {
+                return connectionWidth - (2.75 * (constants as any).GRID_UNIT);
             }
             return connectionWidth -
-                this.constants_.SHAPE_IN_SHAPE_PADDING[outerShape][0];
+                (this.constants_ as any).SHAPE_IN_SHAPE_PADDING[outerShape][0];
         } else if (Blockly.blockRendering.Types.isIcon(elem)) {
             return this.constants_.SMALL_PADDING;
         }
         return 0;
     }
 
-    finalizeVerticalAlignment_() {
+    finalizeVerticalAlignment_(): void {
         if (this.outputConnection) {
             return;
         }
-        for (var i = 2; i < this.rows.length - 1; i += 2) {
-            var prevSpacer = this.rows[i - 1];
-            var row = this.rows[i];
-            var nextSpacer = this.rows[i + 1];
+        for (let i = 2; i < this.rows.length - 1; i += 2) {
+            const prevSpacer: any = this.rows[i - 1];
+            const row: any = this.rows[i];
+            const nextSpacer: any = this.rows[i + 1];
 
-            var firstRow = i === 2;
-            var hasPrevNotch = firstRow ?
+            const firstRow: boolean = i === 2;
+            const hasPrevNotch: boolean = firstRow ?
                 !!this.topRow.hasPreviousConnection : !!prevSpacer.followsStatement;
-            var hasNextNotch = i + 2 >= this.rows.length - 1 ?
+            const hasNextNotch: boolean = i + 2 >= this.rows.length - 1 ?
                 !!this.bottomRow.hasNextConnection : !!nextSpacer.precedesStatement;
 
             if (hasPrevNotch) {
-                var hasSingleTextOrImageField = row.elements.length === 3 &&
+                const hasSingleTextOrImageField: boolean = row.elements.length === 3 &&
                     (row.elements[1].field instanceof Blockly.FieldLabel ||
                         row.elements[1].field instanceof Blockly.FieldImage);
                 if (!firstRow && hasSingleTextOrImageField) {
@@ -361,9 +370,10 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
                 } else if (!firstRow && !hasNextNotch) {
                     prevSpacer.height += this.constants_.SMALL_PADDING;
                 } else if (hasNextNotch) {
-                    var hasNonShadowConnectedBlocks = false;
-                    var MIN_VERTICAL_TIGHTNESTING_HEIGHT = 40;
-                    for (var j = 0, elem;
+                    let hasNonShadowConnectedBlocks: boolean = false;
+                    const MIN_VERTICAL_TIGHTNESTING_HEIGHT: number = 40;
+                    for (let j: number = 0, elem: any;
+                        // tslint:disable-next-line: no-conditional-assignment
                         (elem = row.elements[j]); j++) {
                         if (Blockly.blockRendering.Types.isInlineInput(elem) &&
                             elem.connectedBlock && !elem.connectedBlock.isShadow() &&
@@ -382,7 +392,7 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         }
     }
 
-    finalize_() {
+    finalize_(): void {
         this.finalizeOutputConnection_();
         this.finalizeHorizontalAlignment_();
         this.finalizeVerticalAlignment_();

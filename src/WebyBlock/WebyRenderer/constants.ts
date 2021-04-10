@@ -113,7 +113,7 @@ class WebyConstantsProvider extends Blockly.blockRendering.ConstantProvider {
         this.HEXAGONAL = this.makeHexagonal();
         this.ROUNDED = this.makeRounded();
         this.SQUARED = this.makeSquared();
-        this.STATEMENT_INPUT_NOTCH_OFFSET = this.NOTCH_OFFSET_LEFT;
+        this.STATEMENT_INPUT_NOTCH_OFFSET = this.NOTCH_OFFSET_LEFT + (this.INSIDE_CORNERS as any).rightWidth;
     }
     dispose(): void {
         super.dispose();
