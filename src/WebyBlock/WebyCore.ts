@@ -1,38 +1,44 @@
 import Blockly from 'blockly/core';
 
 class WebyCore {
-    constructor() {
-        this.htmlList = [''];
-        this.cssList = ['CSS블럭을 생성해주세요'];
-        this.jsList = ['JS블럭을 생성해주세요'];
-        this.htmlBlockCount = 0;
-        this.cssBlockCount = 0;
-        this.jsBlockCount = 0;
-        this.needReflash = false;
-    }
+    protected htmlList:string[] = [''];
 
-    clearUndoStack() {
+    protected cssList:string[] = [''];
+
+    protected jsList:string[] = [''];
+
+    protected htmlBlockCount:number = 0;
+
+    protected cssBlockCount:number = 0;
+
+    protected jsBlockCount:number = 0;
+
+    protected needReflash:boolean = false;
+
+    clearUndoStack(): void {
         Blockly.mainWorkspace.clearUndo();
     }
 
-    undo() {
+    undo(): void {
         Blockly.mainWorkspace.undo(false);
     }
-    redo() {
+    redo(): void {
         Blockly.mainWorkspace.undo(true);
     }
-    
-    exportXml(_workspace) {
+
+    exportXml(_workspace: any): string {
         return Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(_workspace));
     }
 
-    importXml(_workspace, _xml) {
+    importXml(_workspace: any, _xml: string): string[] {
         return Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(_xml), _workspace);
     }
 
-    createHatBlock(_workspace, _s, _name = undefined, _deletable = true) {
-        var _blockCount;
-        var _text = [null,null,null];
+    // tslint:disable-next-line: no-unnecessary-initializer
+    createHatBlock(_workspace: any, _s: number, _name: string | undefined = undefined, _deletable: boolean = true): void {
+        let _blockCount: number;
+        // tslint:disable-next-line: prefer-const
+        let _text: string[];
         switch(_s) {
             case 1:
                 _blockCount = this.htmlBlockCount;
@@ -56,11 +62,11 @@ class WebyCore {
         }
         if(!_name) _name = window.prompt(_text[1]+'블럭의 이름을 지어주세요');
         if(_name !== 'undefined' && _name !== undefined) {
-            var _type = _text[0] + _name;
-            var _msg = _text[1]+' (' + _name + _text[2];
+            const _type: string = _text[0] + _name;
+            const _msg: string = _text[1]+' (' + _name + _text[2];
             if(_s === 1) {
                 Blockly.Blocks[_type] = {
-                    init: function() {
+                    init() {
                         this.jsonInit({
                             "message0": _msg,
                             "message1": "헤드 %1",
@@ -74,7 +80,7 @@ class WebyCore {
                         });
                         this.setDeletable(_deletable);
                     }
-                }
+                };
             }
             else {
                 Blockly.defineBlocksWithJsonArray([
@@ -90,7 +96,7 @@ class WebyCore {
                     }
                 ]);
             }
-            
+
             switch(_s) {
                 case 1:
                     if(_blockCount === 0) this.htmlList = [];
@@ -109,9 +115,9 @@ class WebyCore {
                 break;
                 default: break;
             }
-            
 
-            var _newBlock = _workspace.newBlock(_type);
+
+            const _newBlock: any = _workspace.newBlock(_type);
             _newBlock.initSvg();
             _newBlock.render();
             this.needReflash = true;
