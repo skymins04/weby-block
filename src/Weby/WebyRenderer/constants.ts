@@ -1,46 +1,79 @@
 import Blockly from 'blockly/core';
 
 class WebyConstantsProvider extends Blockly.blockRendering.ConstantProvider {
-    GRID_UNIT: number = 4;
-    SMALL_PADDING: number = this.GRID_UNIT;
-    MEDIUM_PADDING: number = 2 * this.GRID_UNIT;
-    MEDIUM_LARGE_PADDING: number = 3 * this.GRID_UNIT;
-    LARGE_PADDING: number = 4 * this.GRID_UNIT;
-    CORNER_RADIUS: number = 1 * this.GRID_UNIT;
-    NOTCH_WIDTH: number = 9 * this.GRID_UNIT;
-    NOTCH_HEIGHT: number = 2 * this.GRID_UNIT;
-    NOTCH_OFFSET_LEFT: number = 3 * this.GRID_UNIT;
-    STATEMENT_INPUT_NOTCH_OFFSET: number = this.NOTCH_OFFSET_LEFT;
-    MIN_BLOCK_WIDTH: number = 2 * this.GRID_UNIT;
-    MIN_BLOCK_HEIGHT: number = 12 * this.GRID_UNIT;
-    EMPTY_STATEMENT_INPUT_HEIGHT: number = 6 * this.GRID_UNIT;
-    TAB_OFFSET_FROM_TOP: number = 0;
-    TOP_ROW_MIN_HEIGHT: number = this.CORNER_RADIUS;
-    TOP_ROW_PRECEDES_STATEMENT_MIN_HEIGHT: number = this.LARGE_PADDING;
-    BOTTOM_ROW_MIN_HEIGHT: number = this.CORNER_RADIUS;
-    BOTTOM_ROW_AFTER_STATEMENT_MIN_HEIGHT: number = 6 * this.GRID_UNIT;
-    STATEMENT_BOTTOM_SPACER: number = -this.NOTCH_HEIGHT;
-    STATEMENT_INPUT_SPACER_MIN_WIDTH: number = 40 * this.GRID_UNIT;
-    STATEMENT_INPUT_PADDING_LEFT: number = 4 * this.GRID_UNIT;
-    EMPTY_INLINE_INPUT_PADDING: number = 4 * this.GRID_UNIT;
-    EMPTY_INLINE_INPUT_HEIGHT: number = 8 * this.GRID_UNIT;
-    DUMMY_INPUT_MIN_HEIGHT: number = 8 * this.GRID_UNIT;
-    DUMMY_INPUT_SHADOW_MIN_HEIGHT: number = 6 * this.GRID_UNIT;
-    CURSOR_WS_WIDTH: number = 20 * this.GRID_UNIT;
-    CURSOR_COLOUR: string = '#ffa200';
-    CURSOR_RADIUS: number = 5;
-    JAGGED_TEETH_HEIGHT: number = 0;
-    JAGGED_TEETH_WIDTH: number = 0;
-    START_HAT_HEIGHT: number = 22;
-    START_HAT_WIDTH: number = 96;
-    SHAPES: any = {
+    public GRID_UNIT: number = 4;
+
+    public SMALL_PADDING: number = this.GRID_UNIT;
+
+    public MEDIUM_PADDING: number = 2 * this.GRID_UNIT;
+
+    public MEDIUM_LARGE_PADDING: number = 3 * this.GRID_UNIT;
+
+    public LARGE_PADDING: number = 4 * this.GRID_UNIT;
+
+    public CORNER_RADIUS: number = 1 * this.GRID_UNIT;
+
+    public NOTCH_WIDTH: number = 9 * this.GRID_UNIT;
+
+    public NOTCH_HEIGHT: number = 2 * this.GRID_UNIT;
+
+    public NOTCH_OFFSET_LEFT: number = 3 * this.GRID_UNIT;
+
+    public STATEMENT_INPUT_NOTCH_OFFSET: number = this.NOTCH_OFFSET_LEFT;
+
+    public MIN_BLOCK_WIDTH: number = 2 * this.GRID_UNIT;
+
+    public MIN_BLOCK_HEIGHT: number = 12 * this.GRID_UNIT;
+
+    public EMPTY_STATEMENT_INPUT_HEIGHT: number = 6 * this.GRID_UNIT;
+
+    public TAB_OFFSET_FROM_TOP: number = 0;
+
+    public TOP_ROW_MIN_HEIGHT: number = this.CORNER_RADIUS;
+
+    public TOP_ROW_PRECEDES_STATEMENT_MIN_HEIGHT: number = this.LARGE_PADDING;
+
+    public BOTTOM_ROW_MIN_HEIGHT: number = this.CORNER_RADIUS;
+
+    public BOTTOM_ROW_AFTER_STATEMENT_MIN_HEIGHT: number = 6 * this.GRID_UNIT;
+
+    public STATEMENT_BOTTOM_SPACER: number = -this.NOTCH_HEIGHT;
+
+    public STATEMENT_INPUT_SPACER_MIN_WIDTH: number = 40 * this.GRID_UNIT;
+
+    public STATEMENT_INPUT_PADDING_LEFT: number = 4 * this.GRID_UNIT;
+
+    public EMPTY_INLINE_INPUT_PADDING: number = 4 * this.GRID_UNIT;
+
+    public EMPTY_INLINE_INPUT_HEIGHT: number = 8 * this.GRID_UNIT;
+
+    public DUMMY_INPUT_MIN_HEIGHT: number = 8 * this.GRID_UNIT;
+
+    public DUMMY_INPUT_SHADOW_MIN_HEIGHT: number = 6 * this.GRID_UNIT;
+
+    public CURSOR_WS_WIDTH: number = 20 * this.GRID_UNIT;
+
+    public CURSOR_COLOUR: string = '#ffa200';
+
+    public CURSOR_RADIUS: number = 5;
+
+    public JAGGED_TEETH_HEIGHT: number = 0;
+
+    public JAGGED_TEETH_WIDTH: number = 0;
+
+    public START_HAT_HEIGHT: number = 22;
+
+    public START_HAT_WIDTH: number = 96;
+
+    public SHAPES: any = {
         HEXAGONAL: 1,
         ROUND: 2,
         SQUARE: 3,
         PUZZLE: 4,
         NOTCH: 5
     };
-    SHAPE_IN_SHAPE_PADDING: any = {
+
+    public SHAPE_IN_SHAPE_PADDING: any = {
         1: { // Outer shape: hexagon.
             0: 5 * this.GRID_UNIT, // Field in hexagon.
             1: 2 * this.GRID_UNIT, // Hexagon in hexagon.
@@ -60,46 +93,74 @@ class WebyConstantsProvider extends Blockly.blockRendering.ConstantProvider {
             3: 2 * this.GRID_UNIT // Square in square.
         }
     };
-    FULL_BLOCK_FIELDS: boolean = true;
-    FIELD_TEXT_FONTSIZE: number = 3 * this.GRID_UNIT;
-    FIELD_TEXT_FONTWEIGHT: string = 'bold';
-    FIELD_TEXT_FONTFAMILY: string = '"Helvetica Neue", "Segoe UI", Helvetica, sans-serif';
-    FIELD_BORDER_RECT_RADIUS: number = this.CORNER_RADIUS;
-    FIELD_BORDER_RECT_X_PADDING: number = 2 * this.GRID_UNIT;
-    FIELD_BORDER_RECT_Y_PADDING: number = 1.625 * this.GRID_UNIT;
-    FIELD_BORDER_RECT_HEIGHT: number = 8 * this.GRID_UNIT;
-    FIELD_DROPDOWN_BORDER_RECT_HEIGHT: number = 8 * this.GRID_UNIT;
-    FIELD_DROPDOWN_NO_BORDER_RECT_SHADOW: boolean = true;
-    FIELD_DROPDOWN_COLOURED_DIV: boolean = true;
-    FIELD_DROPDOWN_SVG_ARROW: boolean = true;
-    FIELD_DROPDOWN_SVG_ARROW_PADDING: number = this.FIELD_BORDER_RECT_X_PADDING;
-    FIELD_TEXTINPUT_BOX_SHADOW: boolean = true;
-    FIELD_COLOUR_FULL_BLOCK: boolean = false;
-    FIELD_COLOUR_DEFAULT_WIDTH: number = 8 * this.GRID_UNIT;
-    FIELD_COLOUR_DEFAULT_HEIGHT: number = 6 * this.GRID_UNIT;
-    FIELD_CHECKBOX_X_OFFSET: number = 1 * this.GRID_UNIT;
-    MAX_DYNAMIC_CONNECTION_SHAPE_WIDTH: number = 12 * this.GRID_UNIT;
-    SELECTED_GLOW_COLOUR: string = '#fff200';
-    SELECTED_GLOW_SIZE: number = 0.5;
-    REPLACEMENT_GLOW_COLOUR: string = '#fff200';
-    REPLACEMENT_GLOW_SIZE: number = 2;
-    selectedGlowFilterId: string = '';
-    // tslint:disable-next-line: variable-name
-    selectedGlowFilter_: any = null;
-    replacementGlowFilterId: string = '';
-    // tslint:disable-next-line: variable-name
-    replacementGlowFilter_: any = null;
 
-    HEXAGONAL: any = null;
-    ROUNDED: any = null;
-    SQUARED: any = null;
+    public FULL_BLOCK_FIELDS: boolean = true;
 
-    setFontConstants_(theme: Blockly.Theme): void {
+    public FIELD_TEXT_FONTSIZE: number = 3 * this.GRID_UNIT;
+
+    public FIELD_TEXT_FONTWEIGHT: string = 'bold';
+
+    public FIELD_TEXT_FONTFAMILY: string = '"Helvetica Neue", "Segoe UI", Helvetica, sans-serif';
+
+    public FIELD_BORDER_RECT_RADIUS: number = this.CORNER_RADIUS;
+
+    public FIELD_BORDER_RECT_X_PADDING: number = 2 * this.GRID_UNIT;
+
+    public FIELD_BORDER_RECT_Y_PADDING: number = 1.625 * this.GRID_UNIT;
+
+    public FIELD_BORDER_RECT_HEIGHT: number = 8 * this.GRID_UNIT;
+
+    public FIELD_DROPDOWN_BORDER_RECT_HEIGHT: number = 8 * this.GRID_UNIT;
+
+    public FIELD_DROPDOWN_NO_BORDER_RECT_SHADOW: boolean = true;
+
+    public FIELD_DROPDOWN_COLOURED_DIV: boolean = true;
+
+    public FIELD_DROPDOWN_SVG_ARROW: boolean = true;
+
+    public FIELD_DROPDOWN_SVG_ARROW_PADDING: number = this.FIELD_BORDER_RECT_X_PADDING;
+
+    public FIELD_TEXTINPUT_BOX_SHADOW: boolean = true;
+
+    public FIELD_COLOUR_FULL_BLOCK: boolean = false;
+
+    public FIELD_COLOUR_DEFAULT_WIDTH: number = 8 * this.GRID_UNIT;
+
+    public FIELD_COLOUR_DEFAULT_HEIGHT: number = 6 * this.GRID_UNIT;
+
+    public FIELD_CHECKBOX_X_OFFSET: number = 1 * this.GRID_UNIT;
+
+    public MAX_DYNAMIC_CONNECTION_SHAPE_WIDTH: number = 12 * this.GRID_UNIT;
+
+    public SELECTED_GLOW_COLOUR: string = '#fff200';
+
+    public SELECTED_GLOW_SIZE: number = 0.5;
+
+    public REPLACEMENT_GLOW_COLOUR: string = '#fff200';
+
+    public REPLACEMENT_GLOW_SIZE: number = 2;
+
+    public selectedGlowFilterId: string = '';
+    // tslint:disable-next-line: variable-name
+    public selectedGlowFilter_: any = null;
+
+    public replacementGlowFilterId: string = '';
+    // tslint:disable-next-line: variable-name
+    public replacementGlowFilter_: any;
+
+    public HEXAGONAL: any = null;
+
+    public ROUNDED: any = null;
+
+    public SQUARED: any = null;
+
+    public setFontConstants_(theme: Blockly.Theme): void {
         super.setFontConstants_(theme);
         this.FIELD_BORDER_RECT_HEIGHT = this.FIELD_TEXT_HEIGHT + this.FIELD_BORDER_RECT_Y_PADDING * 2;
         this.FIELD_DROPDOWN_BORDER_RECT_HEIGHT = this.FIELD_BORDER_RECT_HEIGHT;
     }
-    setDynamicProperties_(theme: any) {
+
+    public setDynamicProperties_(theme: any) {
         super.setDynamicProperties_(theme);
         this.SELECTED_GLOW_COLOUR = theme.getComponentStyle('selectedGlowColour') || this.SELECTED_GLOW_COLOUR;
         const selectedGlowSize = Number(theme.getComponentStyle('selectedGlowSize'));
@@ -108,14 +169,16 @@ class WebyConstantsProvider extends Blockly.blockRendering.ConstantProvider {
         const replacementGlowSize = Number(theme.getComponentStyle('replacementGlowSize'));
         this.REPLACEMENT_GLOW_SIZE = replacementGlowSize && !isNaN(replacementGlowSize) ? replacementGlowSize : this.REPLACEMENT_GLOW_SIZE;
     }
-    init(): void {
+
+    public init(): void {
         super.init();
         this.HEXAGONAL = this.makeHexagonal();
         this.ROUNDED = this.makeRounded();
         this.SQUARED = this.makeSquared();
         this.STATEMENT_INPUT_NOTCH_OFFSET = this.NOTCH_OFFSET_LEFT + (this.INSIDE_CORNERS as any).rightWidth;
     }
-    dispose(): void {
+
+    public dispose(): void {
         super.dispose();
         if (this.selectedGlowFilter_) {
             Blockly.utils.dom.removeNode(this.selectedGlowFilter_);
@@ -124,7 +187,8 @@ class WebyConstantsProvider extends Blockly.blockRendering.ConstantProvider {
             Blockly.utils.dom.removeNode(this.replacementGlowFilter_);
         }
     }
-    makeStartHat(): any {
+
+    public makeStartHat(): any {
         const h: number = this.START_HAT_HEIGHT;
         const w: number = this.START_HAT_WIDTH;
 
@@ -141,7 +205,8 @@ class WebyConstantsProvider extends Blockly.blockRendering.ConstantProvider {
             path: mainPath
         };
     }
-    makeHexagonal(): any {
+
+    public makeHexagonal(): any {
         const maxWidth: number = this.MAX_DYNAMIC_CONNECTION_SHAPE_WIDTH;
 
         function makeMainPath(height: number, up: boolean, right: boolean): string {
@@ -184,7 +249,8 @@ class WebyConstantsProvider extends Blockly.blockRendering.ConstantProvider {
             }
         };
     }
-    makeRounded(): any {
+
+    public makeRounded(): any {
         const maxWidth: number = this.MAX_DYNAMIC_CONNECTION_SHAPE_WIDTH;
         const maxHeight: number = maxWidth * 2;
 
@@ -228,7 +294,7 @@ class WebyConstantsProvider extends Blockly.blockRendering.ConstantProvider {
         };
     }
 
-    makeSquared(): any {
+    public makeSquared(): any {
         const radius: number = this.CORNER_RADIUS;
 
         function makeMainPath(height: number, up: boolean, right: boolean): string {
@@ -267,7 +333,8 @@ class WebyConstantsProvider extends Blockly.blockRendering.ConstantProvider {
             }
         };
     }
-    makeNotch(): any {
+
+    public makeNotch(): any {
         const w: number = this.NOTCH_WIDTH;
         const h: number = this.NOTCH_HEIGHT;
 
@@ -335,7 +402,7 @@ class WebyConstantsProvider extends Blockly.blockRendering.ConstantProvider {
         };
     }
 
-    makeInsideCorners(): any {
+    public makeInsideCorners(): any {
         const radius: number = this.CORNER_RADIUS;
 
         const innerTopLeftCorner: string = Blockly.utils.svgPaths.arc('a', '0 0,0', radius,
@@ -362,7 +429,7 @@ class WebyConstantsProvider extends Blockly.blockRendering.ConstantProvider {
         };
     }
 
-    shapeFor(connection: any): any {
+    public shapeFor(connection: any): any {
         let checks: any = connection.getCheck();
         if (!checks && connection.targetConnection) {
             checks = connection.targetConnection.getCheck();
@@ -402,15 +469,15 @@ class WebyConstantsProvider extends Blockly.blockRendering.ConstantProvider {
         }
     }
 
-    generateSecondaryColour_(colour: string): string {
+    public generateSecondaryColour_(colour: string): string {
         return Blockly.utils.colour.blend('#000', colour, 0.15) || colour;
     }
 
-    generateTertiaryColour_(colour: string): string {
+    public generateTertiaryColour_(colour: string): string {
         return Blockly.utils.colour.blend('#000', colour, 0.25) || colour;
     }
 
-    createDom(svg: SVGElement, tagName: string, selector: string): void {
+    public createDom(svg: SVGElement, tagName: string, selector: string): void {
         super.createDom(svg, tagName, selector);
         const defs: SVGDefsElement = Blockly.utils.dom.createSvgElement(Blockly.utils.Svg.DEFS, {}, svg);
         const selectedGlowFilter: SVGFilterElement = Blockly.utils.dom.createSvgElement(
@@ -506,7 +573,7 @@ class WebyConstantsProvider extends Blockly.blockRendering.ConstantProvider {
         this.replacementGlowFilter_ = replacementGlowFilter;
     }
 
-    getCSS_(selector: string): string[] {
+    public getCSS_(selector: string): string[] {
         return [
             /* eslint-disable indent */
             // Text.

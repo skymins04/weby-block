@@ -17,10 +17,19 @@ declare global {
     }
 }
 
-class BlocklyComponent extends React.Component {
+interface BlocklyComponentProps {
+    readOnly: boolean;
+    trashcan: boolean;
+    media: string;
+    move: any;
+    initialXml: string;
+    children: any;
+}
+
+class BlocklyComponent extends React.Component<BlocklyComponentProps> {
 
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
-    constructor(props: any) {
+    constructor(props: BlocklyComponentProps) {
         super(props);
         this.blocklyDiv = React.createRef();
         this.toolbox = React.createRef();
@@ -33,7 +42,7 @@ class BlocklyComponent extends React.Component {
     private priWorkspace: any = null;
 
     componentDidMount(): void {
-        const { initialXml, children, ...rest } = (this.props as any);
+        const { initialXml, children, ...rest } = this.props;
         this.priWorkspace = Blockly.inject(
             this.blocklyDiv.current,
             {
@@ -55,7 +64,7 @@ class BlocklyComponent extends React.Component {
     }
 
     render() {
-        const { children } = (this.props as any);
+        const { children } = this.props;
         return <React.Fragment>
             <div ref={this.blocklyDiv} id="blocklyDiv" />
             <xml xmlns="https://developers.google.com/blockly/xml" is="blockly" style={{ display: 'none' }} ref={this.toolbox}>

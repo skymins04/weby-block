@@ -7,20 +7,24 @@ class WebyPathObject extends Blockly.blockRendering.PathObject {
         this.constants = constants;
     }
 
-    constants: any = null;
-    svgPathSelected_: any = null;
-    outlines_: any = {};
-    remainingOutlines_: any = null;
-    outputShapeType: any = null;
+    public constants: any = null;
 
-    setPath(pathString: string): void {
+    public svgPathSelected_: any = null;
+
+    public outlines_: any = {};
+
+    public remainingOutlines_: any = null;
+
+    public outputShapeType: any = null;
+
+    public setPath(pathString: string): void {
         super.setPath(pathString);
         if (this.svgPathSelected_) {
             this.svgPathSelected_.setAttribute('d', pathString);
         }
     }
 
-    applyColour(block: Blockly.Block): void {
+    public applyColour(block: Blockly.Block): void {
         super.applyColour(block);
         if (block.isShadow() && block.getParent()) {
             this.svgPath.setAttribute('stroke', (block.getParent() as any).style.colourTertiary);
@@ -32,7 +36,7 @@ class WebyPathObject extends Blockly.blockRendering.PathObject {
         }
     }
 
-    flipRTL(): void {
+    public flipRTL(): void {
         super.flipRTL();
         for (let i: number = 0, keys: string[] = Object.keys(this.outlines_), key: string;
             // tslint:disable-next-line: no-conditional-assignment
@@ -41,7 +45,7 @@ class WebyPathObject extends Blockly.blockRendering.PathObject {
         }
     }
 
-    updateSelected(enable: boolean): void {
+    public updateSelected(enable: boolean): void {
         this.setClass_('blocklySelected', enable);
         if (enable) {
             if (!this.svgPathSelected_) {
@@ -58,7 +62,7 @@ class WebyPathObject extends Blockly.blockRendering.PathObject {
         }
     }
 
-    updateReplacementFade(enable: boolean): void {
+    public updateReplacementFade(enable: boolean): void {
         this.setClass_('blocklyReplaceable', enable);
         if (enable) {
             this.svgPath.setAttribute('filter', 'url(#' + this.constants.replacementGlowFilterId + ')');
@@ -67,7 +71,7 @@ class WebyPathObject extends Blockly.blockRendering.PathObject {
         }
     }
 
-    updateShapeForInputHighlight(conn: any, enable: boolean): void {
+    public updateShapeForInputHighlight(conn: any, enable: boolean): void {
         const name: string = conn.getParentInput().name;
         const outlinePath: SVGPathElement = this.getOutlinePath_(name);
         if (!outlinePath) {
@@ -80,7 +84,7 @@ class WebyPathObject extends Blockly.blockRendering.PathObject {
         }
     }
 
-    beginDrawing(): void {
+    public beginDrawing(): void {
         this.remainingOutlines_ = {};
         for (let i: number = 0, keys: string[] = Object.keys(this.outlines_), key: string;
             // tslint:disable-next-line: no-conditional-assignment
@@ -89,7 +93,7 @@ class WebyPathObject extends Blockly.blockRendering.PathObject {
         }
     }
 
-    endDrawing(): void {
+    public endDrawing(): void {
         if (this.remainingOutlines_) {
             for (let i: number = 0, keys: string[] = Object.keys(this.remainingOutlines_), key: string;
                 // tslint:disable-next-line: no-conditional-assignment
@@ -100,13 +104,13 @@ class WebyPathObject extends Blockly.blockRendering.PathObject {
         this.remainingOutlines_ = null;
     }
 
-    setOutlinePath(name: string, pathString: string): void {
+    public setOutlinePath(name: string, pathString: string): void {
         const outline: SVGPathElement = this.getOutlinePath_(name);
         outline.setAttribute('d', pathString);
         outline.setAttribute('fill', this.style.colourTertiary);
     }
 
-    getOutlinePath_(name: string): SVGPathElement {
+    public getOutlinePath_(name: string): SVGPathElement {
         if (!this.outlines_[name]) {
             this.outlines_[name] = Blockly.utils.dom.createSvgElement(
                 Blockly.utils.Svg.PATH, {
@@ -121,7 +125,7 @@ class WebyPathObject extends Blockly.blockRendering.PathObject {
         return this.outlines_[name];
     }
 
-    removeOutlinePath_(name: string): void {
+    public removeOutlinePath_(name: string): void {
         this.outlines_[name].parentNode.removeChild(this.outlines_[name]);
         delete this.outlines_[name];
     }

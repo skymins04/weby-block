@@ -7,43 +7,43 @@ import WebyPathObject from './path_object';
 
 class WebyRenderer extends Blockly.blockRendering.Renderer {
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
-    constructor(name: any) {
+    constructor(name: string) {
         super(name);
     }
 
-    makeConstants_(): any {
+    public makeConstants_(): WebyConstantsProvider {
         return new WebyConstantsProvider();
     }
 
-    makeRenderInfo_(block: any): WebyRenderInfo {
+    public makeRenderInfo_(block: Blockly.BlockSvg): WebyRenderInfo {
         return new WebyRenderInfo(this, block);
     }
 
-    makeDrawer_(block: any, info: any): WebyDrawer {
+    public makeDrawer_(block: Blockly.BlockSvg, info: Blockly.blockRendering.RenderInfo): WebyDrawer {
         return new WebyDrawer(block, info);
     }
 
-    makeMarkerDrawer(workspace: any, maker: any): WebyMakerSvg {
+    public makeMarkerDrawer(workspace: Blockly.WorkspaceSvg, maker: Blockly.Marker): WebyMakerSvg {
         return new WebyMakerSvg(workspace, this.getConstants(), maker);
     }
 
-    makePathObject(root: any, style: any): WebyPathObject {
+    public makePathObject(root: SVGElement, style: Blockly.Theme.BlockStyle): WebyPathObject {
         return new WebyPathObject(root, style, this.getConstants());
     }
 
-    shouldHighlightConnection(conn: any): boolean{
+    public shouldHighlightConnection(conn: any): boolean{
         return conn.type !== Blockly.INPUT_VALUE && conn.type !== Blockly.OUTPUT_VALUE;
     }
 
-    getConnectionPreviewMethod(closest: any, local: any, topBlock: any): any {
+    public getConnectionPreviewMethod(closest: Blockly.RenderedConnection, local: Blockly.RenderedConnection, topBlock: Blockly.BlockSvg): any {
         if (local.type === Blockly.OUTPUT_VALUE) {
             if (!closest.isConnected()) {
-              return Blockly.InsertionMarkerManager.PREVIEW_TYPE.INPUT_OUTLINE;
+                return Blockly.InsertionMarkerManager.PREVIEW_TYPE.INPUT_OUTLINE;
             }
             return Blockly.InsertionMarkerManager.PREVIEW_TYPE.REPLACEMENT_FADE;
-          }
+        }
 
-          return super.getConnectionPreviewMethod(closest, local, topBlock);
+        return super.getConnectionPreviewMethod(closest, local, topBlock);
     }
 }
 

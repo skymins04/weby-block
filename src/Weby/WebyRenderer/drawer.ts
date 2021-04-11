@@ -2,11 +2,11 @@ import Blockly from 'blockly/core';
 
 class WebyDrawer extends Blockly.blockRendering.Drawer {
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
-    constructor(block: any, info: any) {
+    constructor(block: Blockly.BlockSvg, info: Blockly.blockRendering.RenderInfo) {
         super(block, info);
     }
 
-    draw(): void {
+    public draw(): void {
         const pathObject: any = (this as any).block_.pathObject;
         pathObject.beginDrawing();
         this.hideHiddenIcons_();
@@ -27,7 +27,7 @@ class WebyDrawer extends Blockly.blockRendering.Drawer {
         pathObject.endDrawing();
     }
 
-    drawOutline_(): void {
+    public drawOutline_(): void {
         if ((this as any).info_.outputConnection &&
             (this as any).info_.outputConnection.isDynamicShape &&
             !(this as any).info_.hasStatementInput &&
@@ -41,7 +41,7 @@ class WebyDrawer extends Blockly.blockRendering.Drawer {
         }
     }
 
-    drawLeft_(): void {
+    public drawLeft_(): void {
         if ((this as any).info_.outputConnection &&
             (this as any).info_.outputConnection.isDynamicShape) {
             this.drawLeftDynamicConnection_();
@@ -50,7 +50,7 @@ class WebyDrawer extends Blockly.blockRendering.Drawer {
         }
     }
 
-    drawRightSideRow_(row: any): void {
+    public drawRightSideRow_(row: any): void {
         if (row.height <= 0) {
             return;
         }
@@ -66,31 +66,31 @@ class WebyDrawer extends Blockly.blockRendering.Drawer {
         }
     }
 
-    drawRightDynamicConnection_(): void {
+    public drawRightDynamicConnection_(): void {
         (this as any).outlinePath_ += (this as any).info_.outputConnection.shape.pathRightDown((this as any).info_.outputConnection.height);
     }
 
-    drawLeftDynamicConnection_(): void {
+    public drawLeftDynamicConnection_(): void {
         this.positionOutputConnection_();
         (this as any).outlinePath_ += (this as any).info_.outputConnection.shape.pathUp((this as any).info_.outputConnection.height);
         (this as any).outlinePath_ += 'z';
     }
 
-    drawFlatTop_(): void {
+    public drawFlatTop_(): void {
         const topRow = (this as any).info_.topRow;
         this.positionPreviousConnection_();
         (this as any).outlinePath_ += Blockly.utils.svgPaths.moveBy(topRow.xPos, (this as any).info_.startY);
         (this as any).outlinePath_ += Blockly.utils.svgPaths.lineOnAxis('h', topRow.width);
     }
 
-    drawFlatBottom_(): void {
+    public drawFlatBottom_(): void {
         const bottomRow = (this as any).info_.bottomRow;
         this.positionNextConnection_();
         (this as any).outlinePath_ += Blockly.utils.svgPaths.lineOnAxis('V', bottomRow.baseline);
         (this as any).outlinePath_ += Blockly.utils.svgPaths.lineOnAxis('h', -bottomRow.width);
     }
 
-    drawInlineInput_(input: any): void {
+    public drawInlineInput_(input: any): void {
         this.positionInlineInputConnection_(input);
 
         const inputName: string = input.input.name;
@@ -113,7 +113,7 @@ class WebyDrawer extends Blockly.blockRendering.Drawer {
         (this as any).block_.pathObject.setOutlinePath(inputName, outlinePath);
     }
 
-    drawStatementInput_(row: any) {
+    public drawStatementInput_(row: any) {
         const input: any = row.getLastInput();
         const x: number = input.xPos + input.notchOffset + input.shape.width;
 

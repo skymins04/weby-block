@@ -2,11 +2,11 @@ import Blockly from 'blockly/core';
 
 class WebyMakerSvg extends Blockly.blockRendering.MarkerSvg {
     // eslint-disable-next-line @typescript-eslint/no-useless-constructor
-    constructor(workspace: any, constants: any, maker: any) {
+    constructor(workspace: Blockly.WorkspaceSvg, constants: Blockly.blockRendering.ConstantProvider, maker: Blockly.Marker) {
         super(workspace, constants, maker);
     }
 
-    showWithInputOutput(curNode: Blockly.ASTNode): void {
+    public showWithInputOutput(curNode: Blockly.ASTNode): void {
         const block: any = curNode.getSourceBlock();
         const connection: any = curNode.getLocation();
         const offsetInBlock: any = connection.getOffsetInBlock();
@@ -16,15 +16,15 @@ class WebyMakerSvg extends Blockly.blockRendering.MarkerSvg {
         this.showCurrent_();
     }
 
-    showWithOutput_(curNode: Blockly.ASTNode): void {
+    public showWithOutput_(curNode: Blockly.ASTNode): void {
         this.showWithInputOutput(curNode);
     }
 
-    showWithInput_(curNode: Blockly.ASTNode): void {
+    public showWithInput_(curNode: Blockly.ASTNode): void {
         this.showWithInputOutput(curNode);
     }
 
-    showWithBlock_(curNode: Blockly.ASTNode): void {
+    public showWithBlock_(curNode: Blockly.ASTNode): void {
         const block: any = curNode.getLocation();
         const heightWidth: any = block.getHeightWidth();
         this.positionRect_(0, 0, heightWidth.width, heightWidth.height);
@@ -32,18 +32,18 @@ class WebyMakerSvg extends Blockly.blockRendering.MarkerSvg {
         this.showCurrent_();
     }
 
-    positionCircle_(x: number, y: number): void {
+    public positionCircle_(x: number, y: number): void {
         (this as any).markerCircle_.setAttribute('cx', x);
         (this as any).markerCircle_.setAttribute('cy', y);
         this.currentMarkerSvg = (this as any).markerCircle_;
     }
 
-    hide(): void {
+    public hide(): void {
         super.hide();
         (this as any).markerCircle_.style.display = 'none';
     }
 
-    createDomInternal_(): any {
+    public createDomInternal_(): any {
         super.createDomInternal_();
 
         (this as any).markerCircle_ = Blockly.utils.dom.createSvgElement(
@@ -64,7 +64,7 @@ class WebyMakerSvg extends Blockly.blockRendering.MarkerSvg {
         return (this as any).markerSvg_;
     }
 
-    applyColour_(curNode: Blockly.ASTNode): void {
+    public applyColour_(curNode: Blockly.ASTNode): void {
         super.applyColour_(curNode);
         (this as any).markerCircle_.setAttribute('fill', this.colour_);
         (this as any).markerCircle_.setAttribute('stroke', this.colour_);

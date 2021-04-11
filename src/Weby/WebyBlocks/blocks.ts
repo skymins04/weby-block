@@ -5,7 +5,7 @@ import htmlJson from './html.json';
 import cssJson from './css.json';
 // import jsJson from './js.json';
 
-abstract class WebyBlocks extends WebyCore {
+class WebyBlocks extends WebyCore {
     constructor() {
         super();
         this.defBlocksHtml();
@@ -19,13 +19,13 @@ abstract class WebyBlocks extends WebyCore {
         let _opt = [];
         switch(_s) {
             case 1:
-                _list = this.htmlList;
+                _list = this._htmlList;
                 break;
             case 2:
-                _list = this.cssList;
+                _list = this._cssList;
                 break;
             case 3:
-                _list = this.jsList;
+                _list = this._jsList;
                 break;
             default: break;
         }
@@ -33,7 +33,7 @@ abstract class WebyBlocks extends WebyCore {
         return _opt;
     }
 
-    defBlocksHtml(_reflashmode:boolean = false): void {
+    public defBlocksHtml(_reflashmode:boolean = false): void {
         if(!_reflashmode) {
             Blockly.defineBlocksWithJsonArray(htmlJson);
         }
@@ -67,7 +67,7 @@ abstract class WebyBlocks extends WebyCore {
         if(_reflashmode) this.needReflash = false;
     }
 
-    defBlocksCss(): void {
+    public defBlocksCss(): void {
         Blockly.defineBlocksWithJsonArray(cssJson);
 
         (Blockly as any).Blocks.cssblock_textdecoration = {
@@ -120,7 +120,7 @@ abstract class WebyBlocks extends WebyCore {
         };
     }
 
-    // defBlocksJs(): void {}
+    // public defBlocksJs(): void {}
 }
 
 export default WebyBlocks;

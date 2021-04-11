@@ -1,3 +1,4 @@
+/* tslint:disable: no-console */
 import React from 'react';
 import BlocklyComponent, { Block, Value, Field, Shadow, Category, Button, Sep, Mutation, Label } from './Blockly';
 
@@ -5,14 +6,28 @@ import WebyBlocks from './Weby/WebyBlocks';
 
 import './App.css';
 
-class App extends React.Component {
-    constructor(props) {
+// tslint:disable-next-line: no-empty-interface
+interface WebyAppProps {}
+
+interface WebyAppState {
+    xmlOutput: JSX.Element;
+    activeWorkspace: number;
+    workspaceShow1: boolean;
+    workspaceShow2: boolean;
+    workspaceShow3: boolean;
+    workspaceReg1: string;
+    workspaceReg2: string;
+    workspaceReg3: string;
+}
+
+class WebyApp extends React.Component<WebyAppProps, WebyAppState> {
+    constructor(props: WebyAppProps) {
         super(props);
         this.workspaceRef1 = React.createRef();
         this.workspaceRef2 = React.createRef();
         this.workspaceRef3 = React.createRef();
         this.state = {
-            xmlOutput: '',
+            xmlOutput: <></>,
             activeWorkspace: 1,
             workspaceShow1: true,
             workspaceShow2: false,
@@ -20,11 +35,21 @@ class App extends React.Component {
             workspaceReg1: '',
             workspaceReg2: '',
             workspaceReg3: ''
-        }
+        };
         this.WebyBlocks = new WebyBlocks();
     }
 
-    _switchWorkspace(_s) {
+    public state: WebyAppState;
+
+    private workspaceRef1: any;
+
+    private workspaceRef2: any;
+
+    private workspaceRef3: any;
+
+    private WebyBlocks: WebyBlocks;
+
+    private _switchWorkspace(_s: number): void {
         switch(this.state.activeWorkspace) {
             case 1: this.setState({workspaceReg1: this.WebyBlocks.exportXml(this.workspaceRef1.current.workspace)}); break;
             case 2: this.setState({workspaceReg2: this.WebyBlocks.exportXml(this.workspaceRef2.current.workspace)}); break;
@@ -40,23 +65,23 @@ class App extends React.Component {
         this.setState({activeWorkspace: _s});
     }
 
-    _regToolboxCallback(_s) {
+    private _regToolboxCallback(_s: number): void {
         switch(_s) {
             case 1: // html toolbox callbacks
                 if(this.WebyBlocks.needReflash) this.WebyBlocks.defBlocksHtml(true); // html toolbox reflash
-                this.workspaceRef1.current.workspace.registerButtonCallback('createHtml', () => {this.WebyBlocks.createHatBlock(this.workspaceRef1.current.workspace, 1)});
+                this.workspaceRef1.current.workspace.registerButtonCallback('createHtml', () => {this.WebyBlocks.createHatBlock(this.workspaceRef1.current.workspace, 1);});
             break;
             case 2: // css toolbox callbacks
-                this.workspaceRef2.current.workspace.registerButtonCallback('createCss', () => {this.WebyBlocks.createHatBlock(this.workspaceRef2.current.workspace, 2)});
+                this.workspaceRef2.current.workspace.registerButtonCallback('createCss', () => {this.WebyBlocks.createHatBlock(this.workspaceRef2.current.workspace, 2);});
             break;
             case 3: // js toolbox callbacks
-                this.workspaceRef3.current.workspace.registerButtonCallback('createJs', () => {this.WebyBlocks.createHatBlock(this.workspaceRef3.current.workspace, 3)});
+                this.workspaceRef3.current.workspace.registerButtonCallback('createJs', () => {this.WebyBlocks.createHatBlock(this.workspaceRef3.current.workspace, 3);});
             break;
             default: break;
         }
     }
 
-    _exportXmls() {
+    private _exportXmls(): void {
         this.setState({
             xmlOutput: <React.Fragment>
                 <div>{this.state.activeWorkspace === 1 ? this.WebyBlocks.exportXml(this.workspaceRef1.current.workspace) : this.state.workspaceReg1}</div>
@@ -66,16 +91,16 @@ class App extends React.Component {
         });
     }
 
-    _viewHeadblockList() {
+    private _viewHeadblockList(): void {
         console.log('[HTML XML]');
         console.log(this.WebyBlocks.htmlList);
         console.log('[CSS XML]');
         console.log(this.WebyBlocks.cssList);
         console.log('[JS XML]');
         console.log(this.WebyBlocks.jsList);
-    };
+    }
 
-    render() {
+    public render(): JSX.Element {
         const {workspaceShow1, workspaceShow2, workspaceShow3} = this.state;
         return( <React.Fragment>
             <button onClick={() => this._switchWorkspace(1)}>HTML</button>
@@ -83,7 +108,7 @@ class App extends React.Component {
             <button onClick={() => this._switchWorkspace(3)}>JS</button>
             <button onClick={() => this._exportXmls()}>Export XML</button>
             <button onClick={() => this._viewHeadblockList()}>View HB List</button>
-            <button onClick={() => {console.log(this.workspaceRef2.current.workspace.getUndoStack())}}>Get Undo Stack</button>
+            <button onClick={() => {console.log(this.workspaceRef2.current.workspace.getUndoStack());}}>Get Undo Stack</button>
 
             {workspaceShow1 && <BlocklyComponent ref={this.workspaceRef1} readOnly={false} trashcan={true} media={'media/'} move={{ scrollbars: true, drag: true, wheel: true }} initialXml={this.state.workspaceReg1}>
                 <Button web-class="themeHtml" text="새 HTML 생성" callbackKey="createHtml"></Button>
@@ -506,4 +531,4 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default WebyApp;

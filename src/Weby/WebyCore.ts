@@ -2,59 +2,72 @@
 import Blockly from 'blockly/core';
 
 class WebyCore {
-    protected htmlList:string[] = ['HTML블럭을 생성해주세요'];
+    protected _htmlList:string[] = ['HTML블럭을 생성해주세요'];
 
-    protected cssList:string[] = ['CSS블럭을 생성해주세요'];
+    protected _cssList:string[] = ['CSS블럭을 생성해주세요'];
 
-    protected jsList:string[] = ['JS블럭을 생성해주세요'];
+    protected _jsList:string[] = ['JS블럭을 생성해주세요'];
 
-    protected htmlBlockCount:number = 0;
+    protected _htmlBlockCount:number = 0;
 
-    protected cssBlockCount:number = 0;
+    protected _cssBlockCount:number = 0;
 
-    protected jsBlockCount:number = 0;
+    protected _jsBlockCount:number = 0;
 
-    protected needReflash:boolean = false;
+    public needReflash:boolean = false;
 
-    clearUndoStack(): void {
+    get htmlList(): string[] {
+        return this._htmlList;
+    }
+
+    get cssList(): string[] {
+        return this._cssList;
+    }
+
+    get jsList(): string[] {
+        return this._jsList;
+    }
+
+    public clearUndoStack(): void {
         Blockly.mainWorkspace.clearUndo();
     }
 
-    undo(): void {
+    public undo(): void {
         Blockly.mainWorkspace.undo(false);
     }
-    redo(): void {
+
+    public redo(): void {
         Blockly.mainWorkspace.undo(true);
     }
 
-    exportXml(_workspace: any): string {
+    public exportXml(_workspace: any): string {
         return Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(_workspace));
     }
 
-    importXml(_workspace: any, _xml: string): string[] {
+    public importXml(_workspace: any, _xml: string): string[] {
         return Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(_xml), _workspace);
     }
 
     // tslint:disable-next-line: no-unnecessary-initializer
-    createHatBlock(_workspace: any, _s: number, _name: any = undefined, _deletable: boolean = true): void {
+    public createHatBlock(_workspace: any, _s: number, _name: any = undefined, _deletable: boolean = true): void {
         let _blockCount: number = 0;
         // tslint:disable-next-line: prefer-const
         let _text: string[] = ['', '', ''];
         switch(_s) {
             case 1:
-                _blockCount = this.htmlBlockCount;
+                _blockCount = this._htmlBlockCount;
                 _text[0] = 'htmlblock_main_';
                 _text[1] = 'HTML';
                 _text[2] = '.html)';
                 break;
             case 2:
-                _blockCount = this.cssBlockCount;
+                _blockCount = this._cssBlockCount;
                 _text[0] = 'cssblock_main_';
                 _text[1] = 'CSS';
                 _text[2] = '.css)';
                 break;
             case 3:
-                _blockCount = this.jsBlockCount;
+                _blockCount = this._jsBlockCount;
                 _text[0] = 'jsblock_main_';
                 _text[1] = 'JS';
                 _text[2] = '.js)';
@@ -100,19 +113,19 @@ class WebyCore {
 
             switch(_s) {
                 case 1:
-                    if(_blockCount === 0) this.htmlList = [];
+                    if(_blockCount === 0) this._htmlList = [];
                     this.htmlList.push(_name);
-                    this.htmlBlockCount += 1;
+                    this._htmlBlockCount += 1;
                     break;
                 case 2:
-                    if(_blockCount === 0) this.cssList = [];
+                    if(_blockCount === 0) this._cssList = [];
                     this.cssList.push(_name);
-                    this.cssBlockCount += 1;
+                    this._cssBlockCount += 1;
                     break;
                 case 3:
-                    if(_blockCount === 0) this.jsList = [];
-                    this.jsList.push(_name);
-                    this.jsBlockCount += 1;
+                    if(_blockCount === 0) this._jsList = [];
+                    this._jsList.push(_name);
+                    this._jsBlockCount += 1;
                     break;
                 default: break;
             }

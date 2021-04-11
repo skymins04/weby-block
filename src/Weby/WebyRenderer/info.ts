@@ -3,25 +3,32 @@ import { WebyTopRow, WebyBottomRow } from './measurables/rows';
 import WebyRightConnectionShape from './measurables/row_elements';
 
 class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
-    // eslint-disable-next-line @typescript-eslint/no-useless-constructor
-    constructor(renderer: any, block: any) {
+    constructor(renderer: Blockly.blockRendering.Renderer, block: Blockly.BlockSvg) {
         super(renderer, block);
         this.isMultiRow = !block.getInputsInline() || block.isCollapsed();
         this.hasStatementInput= block.statementInputCount > 0;
+        this.topRow = new WebyTopRow(this.constants_);
+        this.bottomRow = new WebyBottomRow(this.constants_);
+        this.rightSide = this.outputConnection ? new WebyRightConnectionShape(this.constants_) : null;
     }
 
-    topRow: WebyTopRow = new WebyTopRow(this.constants_);
-    bottomRow: WebyBottomRow = new WebyBottomRow(this.constants_);
-    isInline: boolean = true;
-    isMultiRow: boolean = false;
-    hasStatementInput: boolean = false;
-    rightSide: WebyRightConnectionShape | any = this.outputConnection ? new WebyRightConnectionShape(this.constants_) : null;
+    public topRow: WebyTopRow;
 
-    getRenderer(): Blockly.blockRendering.Renderer {
+    public bottomRow: WebyBottomRow;
+
+    public isInline: boolean = true;
+
+    public isMultiRow: boolean = false;
+
+    public hasStatementInput: boolean = false;
+
+    public rightSide: WebyRightConnectionShape | any;
+
+    public getRenderer(): Blockly.blockRendering.Renderer {
         return this.renderer_;
     }
 
-    measure(): void {
+    public measure(): void {
         this.createRows_();
         this.addElemSpacing_();
         this.addRowSpacing_();
@@ -31,7 +38,7 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         this.finalize_();
     }
 
-    shouldStartNewRow_(input: any, lastInput: any): boolean {
+    public shouldStartNewRow_(input: any, lastInput: any): boolean {
         if (!lastInput) {
             return false;
         }
@@ -45,7 +52,7 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         return false;
     }
 
-    getDesiredRowWidth_(row: any): number {
+    public getDesiredRowWidth_(row: any): number {
         if (row.hasStatement) {
             const rightCornerWidth: number = (this.constants_.INSIDE_CORNERS as any).rightWidth || 0;
             return this.width - rightCornerWidth;
@@ -53,7 +60,7 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         return super.getDesiredRowWidth_(row);
     }
 
-    getInRowSpacing_(prev: any, next: any): number {
+    public getInRowSpacing_(prev: any, next: any): number {
         if (!prev || !next) {
             if (this.outputConnection && (this.outputConnection as any).isDynamicShape &&
                 !this.hasStatementInput && !this.bottomRow.hasNextConnection) {
@@ -78,7 +85,7 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         return this.constants_.MEDIUM_PADDING;
     }
 
-    getSpacerRowHeight_(prev: any, next: any): number {
+    public getSpacerRowHeight_(prev: any, next: any): number {
         if (Blockly.blockRendering.Types.isTopRow(prev) &&
             Blockly.blockRendering.Types.isBottomRow(next)) {
             return (this.constants_ as any).EMPTY_BLOCK_SPACER_HEIGHT;
@@ -116,7 +123,7 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         return this.constants_.MEDIUM_PADDING;
     }
 
-    getSpacerRowWidth_(prev: any, next: any): number {
+    public getSpacerRowWidth_(prev: any, next: any): number {
         const width = this.width - (this as any).startX;
         if ((Blockly.blockRendering.Types.isInputRow(prev) && prev.hasStatement) ||
             (Blockly.blockRendering.Types.isInputRow(next) && next.hasStatement)) {
@@ -125,7 +132,7 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         return width;
     }
 
-    getElemCenterline_(row: any, elem: Blockly.blockRendering.Row | Blockly.blockRendering.Measurable): number {
+    public getElemCenterline_(row: any, elem: Blockly.blockRendering.Row | Blockly.blockRendering.Measurable): number {
         if (row.hasStatement && !Blockly.blockRendering.Types.isSpacer(elem) &&
             !Blockly.blockRendering.Types.isStatementInput(elem)) {
             return row.yPos + this.constants_.EMPTY_STATEMENT_INPUT_HEIGHT / 2;
@@ -140,7 +147,7 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         return super.getElemCenterline_(row, elem);
     }
 
-    addInput_(input: any, activeRow: any): void {
+    public addInput_(input: any, activeRow: any): void {
         if (input.type === Blockly.DUMMY_INPUT && activeRow.hasDummyInput &&
             activeRow.align === Blockly.ALIGN_LEFT &&
             input.align === Blockly.ALIGN_RIGHT) {
@@ -149,7 +156,7 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         super.addInput_(input, activeRow);
     }
 
-    addAlignmentPadding_(row: any, missingSpace: any): void {
+    public addAlignmentPadding_(row: any, missingSpace: number): void {
         if (row.rightAlignedDummyInput) {
             let alignmentDivider: any;
             for (let i: number = 0, elem: any;
@@ -172,7 +179,7 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         super.addAlignmentPadding_(row, missingSpace);
     }
 
-    adjustXPosition_(): void {
+    public adjustXPosition_(): void {
         const notchTotalWidth: number = this.constants_.NOTCH_OFFSET_LEFT + this.constants_.NOTCH_WIDTH;
         let minXPos: number = notchTotalWidth;
         for (let i = 2; i < this.rows.length - 1; i += 2) {
@@ -214,7 +221,7 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         }
     }
 
-    finalizeOutputConnection_(): void {
+    public finalizeOutputConnection_(): void {
         if (!this.outputConnection || !(this.outputConnection as any).isDynamicShape) {
             return;
         }
@@ -250,7 +257,7 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         this.widthWithChildren += connectionWidth + rightConnectionWidth;
     }
 
-    finalizeHorizontalAlignment_(): void {
+    public finalizeHorizontalAlignment_(): void {
         if (!this.outputConnection || this.hasStatementInput ||
             this.bottomRow.hasNextConnection) {
             return;
@@ -297,7 +304,7 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         }
     }
 
-    getNegativeSpacing_(elem: Blockly.blockRendering.Measurable): number {
+    public getNegativeSpacing_(elem: Blockly.blockRendering.Measurable): number {
         if (!elem) {
             return 0;
         }
@@ -344,7 +351,7 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         return 0;
     }
 
-    finalizeVerticalAlignment_(): void {
+    public finalizeVerticalAlignment_(): void {
         if (this.outputConnection) {
             return;
         }
@@ -392,7 +399,7 @@ class WebyRenderInfo extends Blockly.blockRendering.RenderInfo {
         }
     }
 
-    finalize_(): void {
+    public finalize_(): void {
         this.finalizeOutputConnection_();
         this.finalizeHorizontalAlignment_();
         this.finalizeVerticalAlignment_();
