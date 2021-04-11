@@ -1,0 +1,104 @@
+[
+    {
+        "type": "htmlblock_text",
+        "message0": "텍스트 %1",
+        "args0": [{"type": "field_multilinetext", "name": "ARG0", "text": "hello\nworld", "spellcheck": false}],
+        "nextStatement": null,
+        "previousStatement": null,
+        "colour": "1"
+    },
+    {
+        "type": "htmlblock_title",
+        "message0": "사이트제목태그 %1",
+        "args0": [{"type": "field_input", "name": "ARG0", "text": "weby website", "spellcheck": false}],
+        "nextStatement": null,
+        "previousStatement": null,
+        "colour": "1"
+    },
+    {
+        "type": "htmlblock_h",
+        "message0": "%1제목태그 %2",
+        "args0": [{"type": "field_dropdown","name": "ARG0","options": [["큰","0"],["중간","1"],["작은","2"]]},
+                {"type": "input_value", "name": "ARG1", "check": "Args"}],
+        "message1": "%1",
+        "args1": [{"type": "input_statement", "name": "INNER0"}],
+        "nextStatement": null,
+        "previousStatement": null,
+        "colour": "1"
+    },
+    {
+        "type": "htmlblock_div",
+        "message0": "영역태그 %1",
+        "args0": [{"type": "input_value", "name": "ARG0", "check": "Args"}],
+        "message1": "%1",
+        "args1": [{"type": "input_statement", "name": "INNER0"}],
+        "nextStatement": null,
+        "previousStatement": null,
+        "colour": "1"
+    },
+    {
+        "type": "htmlblock_a",
+        "message0": "링크태그 %1",
+        "args0": [{"type": "input_value", "name": "ARG0", "check": "Args"}],
+        "message1": "%1",
+        "args1": [{"type": "input_statement", "name": "INNER0"}],
+        "nextStatement": null,
+        "previousStatement": null,
+        "colour": "1"
+    },
+    {
+        "type": "htmlblock_input",
+        "message0": "입력태그 %1",
+        "args0": [
+            {
+                "type": "field_dropdown",
+                "name": "ARG0",
+                "options": [
+                    ["텍스트", "0"],
+                    ["비밀번호", "1"],
+                    ["날짜", "2"],
+                    ["날짜&시간", "3"],
+                    ["기본버튼", "4"],
+                    ["리셋버튼", "5"],
+                    ["전송버튼", "6"],
+                    ["파일업로드버튼", "7"],
+                    ["체크박스", "8"],
+                    ["라디오버튼", "9"],
+                    ["색상", "10"]
+                ]
+            }
+        ],
+        "nextStatement": null,
+        "previousStatement": null,
+        "colour": "1"
+    },
+    {
+        "type": "htmlblock_embed",
+        "message0": "임베드태그 %1",
+        "args0": [{"type": "field_input", "name": "ARG0", "text": "https://소스URL/#", "spellcheck": false}],
+        "nextStatement": null,
+        "previousStatement": null,
+        "colour": "1"
+    },
+    {
+        "type": "htmlblock_br",
+        "message0": "줄바꿈",
+        "nextStatement": null,
+        "previousStatement": null,
+        "colour": "1"
+    },
+    {
+        "type": "htmlalt_class",
+        "message0": "그룹이름 %1",
+        "args0": [{"type": "field_input", "name": "ARG0", "text": "그룹1", "spellcheck": false}],
+        "output": "Args",
+        "colour": "1"
+    },
+    {
+        "type": "htmlalt_id",
+        "message0": "요소이름 %1",
+        "args0": [{"type": "field_input", "name": "ARG0", "text": "요소1", "spellcheck": false}],
+        "output": "Args",
+        "colour": "1"
+    }
+]

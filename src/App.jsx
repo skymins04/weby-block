@@ -1,7 +1,7 @@
 import React from 'react';
 import BlocklyComponent, { Block, Value, Field, Shadow, Category, Button, Sep, Mutation, Label } from './Blockly';
 
-import WebyBlocks from './WebyBlock/WebyBlocks';
+import WebyBlocks from './Weby/WebyBlocks';
 
 import './App.css';
 
