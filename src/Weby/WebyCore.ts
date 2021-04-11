@@ -40,16 +40,16 @@ class WebyCore {
         Blockly.mainWorkspace.undo(true);
     }
 
-    public exportXml(_workspace: any): string {
+    public exportXml(_workspace: Blockly.Workspace): string {
         return Blockly.Xml.domToPrettyText(Blockly.Xml.workspaceToDom(_workspace));
     }
 
-    public importXml(_workspace: any, _xml: string): string[] {
+    public importXml(_workspace: Blockly.Workspace, _xml: string): string[] {
         return Blockly.Xml.domToWorkspace(Blockly.Xml.textToDom(_xml), _workspace);
     }
 
     // tslint:disable-next-line: no-unnecessary-initializer
-    public createHatBlock(_workspace: any, _s: number, _name: any = undefined, _deletable: boolean = true): void {
+    public createHatBlock(_workspace: Blockly.Workspace, _s: number, _name: any = undefined, _deletable: boolean = true): void {
         let _blockCount: number = 0;
         // tslint:disable-next-line: prefer-const
         let _text: string[] = ['', '', ''];
