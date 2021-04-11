@@ -1,60 +1,64 @@
+/* tslint:disable: variable-name */
 import Blockly from 'blockly/core';
 
 class WebyPathObject extends Blockly.blockRendering.PathObject {
-    constructor(root, style, constants) {
+    constructor(root: SVGElement, style: Blockly.Theme.BlockStyle, constants: Blockly.blockRendering.ConstantProvider ) {
         super(root, style, constants);
         this.constants = constants;
-        this.svgPathSelected_ = null;
-        this.outlines_ = {};
-        this.remainingOutlines_ = null;
-        this.outputShapeType = null;
     }
 
-    setPath(pathString) {
+    constants: any = null;
+    svgPathSelected_: any = null;
+    outlines_: any = {};
+    remainingOutlines_: any = null;
+    outputShapeType: any = null;
+
+    setPath(pathString: string): void {
         super.setPath(pathString);
         if (this.svgPathSelected_) {
             this.svgPathSelected_.setAttribute('d', pathString);
         }
     }
 
-    applyColour(block) {
+    applyColour(block: Blockly.Block): void {
         super.applyColour(block);
         if (block.isShadow() && block.getParent()) {
-            this.svgPath.setAttribute('stroke', block.getParent().style.colourTertiary);
+            this.svgPath.setAttribute('stroke', (block.getParent() as any).style.colourTertiary);
         }
-        for (var i = 0, keys = Object.keys(this.outlines_), key;
+        for (let i: number = 0, keys: string[] = Object.keys(this.outlines_), key: string;
+            // tslint:disable-next-line: no-conditional-assignment
             (key = keys[i]); i++) {
             this.outlines_[key].setAttribute('fill', this.style.colourTertiary);
         }
     }
 
-    flipRTL() {
+    flipRTL(): void {
         super.flipRTL();
-        for (var i = 0, keys = Object.keys(this.outlines_),
-                key;
+        for (let i: number = 0, keys: string[] = Object.keys(this.outlines_), key: string;
+            // tslint:disable-next-line: no-conditional-assignment
             (key = keys[i]); i++) {
             this.outlines_[key].setAttribute('transform', 'scale(-1 1)');
         }
     }
 
-    updateSelected(enable) {
+    updateSelected(enable: boolean): void {
         this.setClass_('blocklySelected', enable);
         if (enable) {
             if (!this.svgPathSelected_) {
                 this.svgPathSelected_ = this.svgPath.cloneNode(true);
                 this.svgPathSelected_.setAttribute('fill', 'none');
                 this.svgPathSelected_.setAttribute('filter', 'url(#' + this.constants.selectedGlowFilterId + ')');
-                this.svgRoot.appendChild(this.svgPathSelected_);
+                (this as any).svgRoot.appendChild(this.svgPathSelected_);
             }
         } else {
             if (this.svgPathSelected_) {
-                this.svgRoot.removeChild(this.svgPathSelected_);
+                (this as any).svgRoot.removeChild(this.svgPathSelected_);
                 this.svgPathSelected_ = null;
             }
         }
     }
 
-    updateReplacementFade(enable) {
+    updateReplacementFade(enable: boolean): void {
         this.setClass_('blocklyReplaceable', enable);
         if (enable) {
             this.svgPath.setAttribute('filter', 'url(#' + this.constants.replacementGlowFilterId + ')');
@@ -63,9 +67,9 @@ class WebyPathObject extends Blockly.blockRendering.PathObject {
         }
     }
 
-    updateShapeForInputHighlight(conn, enable) {
-        var name = conn.getParentInput().name;
-        var outlinePath = this.getOutlinePath_(name);
+    updateShapeForInputHighlight(conn: any, enable: boolean): void {
+        const name: string = conn.getParentInput().name;
+        const outlinePath: SVGPathElement = this.getOutlinePath_(name);
         if (!outlinePath) {
             return;
         }
@@ -76,17 +80,19 @@ class WebyPathObject extends Blockly.blockRendering.PathObject {
         }
     }
 
-    beginDrawing() {
+    beginDrawing(): void {
         this.remainingOutlines_ = {};
-        for (var i = 0, keys = Object.keys(this.outlines_), key;
+        for (let i: number = 0, keys: string[] = Object.keys(this.outlines_), key: string;
+            // tslint:disable-next-line: no-conditional-assignment
             (key = keys[i]); i++) {
             this.remainingOutlines_[key] = 1;
         }
     }
 
-    endDrawing() {
+    endDrawing(): void {
         if (this.remainingOutlines_) {
-            for (var i = 0, keys = Object.keys(this.remainingOutlines_), key;
+            for (let i: number = 0, keys: string[] = Object.keys(this.remainingOutlines_), key: string;
+                // tslint:disable-next-line: no-conditional-assignment
                 (key = keys[i]); i++) {
                 this.removeOutlinePath_(key);
             }
@@ -94,20 +100,20 @@ class WebyPathObject extends Blockly.blockRendering.PathObject {
         this.remainingOutlines_ = null;
     }
 
-    setOutlinePath(name, pathString) {
-        var outline = this.getOutlinePath_(name);
+    setOutlinePath(name: string, pathString: string): void {
+        const outline: SVGPathElement = this.getOutlinePath_(name);
         outline.setAttribute('d', pathString);
         outline.setAttribute('fill', this.style.colourTertiary);
     }
 
-    getOutlinePath_(name) {
+    getOutlinePath_(name: string): SVGPathElement {
         if (!this.outlines_[name]) {
             this.outlines_[name] = Blockly.utils.dom.createSvgElement(
                 Blockly.utils.Svg.PATH, {
                     'class': 'blocklyOutlinePath',
                     'd': ''
                 },
-                this.svgRoot);
+                (this as any).svgRoot);
         }
         if (this.remainingOutlines_) {
             delete this.remainingOutlines_[name];
@@ -115,7 +121,7 @@ class WebyPathObject extends Blockly.blockRendering.PathObject {
         return this.outlines_[name];
     }
 
-    removeOutlinePath_(name) {
+    removeOutlinePath_(name: string): void {
         this.outlines_[name].parentNode.removeChild(this.outlines_[name]);
         delete this.outlines_[name];
     }

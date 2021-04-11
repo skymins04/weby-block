@@ -1,40 +1,43 @@
 import Blockly from 'blockly/core';
 
 class WebyTopRow extends Blockly.blockRendering.TopRow {
-    constructor(constants) {
+    // eslint-disable-next-line @typescript-eslint/no-useless-constructor
+    constructor(constants: any) {
         super(constants);
     }
 
-    endsWithElemSpacer() {
+    endsWithElemSpacer(): boolean {
         return false;
     }
 
-    hasLeftSquareCorner(block) {
-        var hasHat = (block.hat ?
+    hasLeftSquareCorner(block: any): boolean {
+        const hasHat: boolean = (block.hat ?
             block.hat === 'cap' : this.constants_.ADD_START_HATS) &&
             !block.outputConnection && !block.previousConnection;
         return !!block.outputConnection || hasHat;
     }
 
-    hasRightSquareCorner(block) {
+    hasRightSquareCorner(block: any): boolean {
         return !!block.outputConnection && !block.statementInputCount && !block.nextConnection;
     }
 }
 
+// tslint:disable-next-line: max-classes-per-file
 class WebyBottomRow extends Blockly.blockRendering.BottomRow {
-    constructor(constants) {
+    // eslint-disable-next-line @typescript-eslint/no-useless-constructor
+    constructor(constants: any) {
         super(constants);
     }
 
-    endsWithElemSpacer() {
+    endsWithElemSpacer(): boolean {
         return false;
     }
 
-    hasLeftSquareCorner(block) {
+    hasLeftSquareCorner(block: any): boolean {
         return !!block.outputConnection;
     }
 
-    hasRightSquareCorner(block) {
+    hasRightSquareCorner(block: any): boolean {
         return !!block.outputConnection && !block.statementInputCount && !block.nextConnection;
     }
 }
