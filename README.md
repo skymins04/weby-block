@@ -1,70 +1,31 @@
-# Getting Started with Create React App
+># Weby Block
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+본 프로젝트는 블록코딩으로 손쉽게 fontEnd WEB service와 backEnd WEB service를 \
+제작하고 실행할 수 있는 플랫폼을 제공합니다.
 
-## Available Scripts
+>## 1. 실행 방법
 
-In the project directory, you can run:
+사전에 설치되어야 하는 항목은 다음과 같습니다 :
++ node.js
++ git (선택적 항목, git clone을 이용하지 않는다면 필요하지 않음)
 
-### `npm start`
+위 항목이 설치되었다는 전제하에 아래 명령어를 통해 Weby Block을 설치합니다.
+```bash
+    $ git clone https://github.com/skymins04/weby-block
+    $ cd weby-block
+    $ npm install
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+이후 아래 명령어를 통해 Weby Block을 실행할 수 있습니다.
+```bash
+    $ npm start
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+>## 2. Weby Block에 대한 문의
++ Weby Block 프로젝트에 관한 문의는 skymin0417@gmail.com 으로 부탁드립니다 :D
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+>## 3. Weby Block 프로젝트 응원하기
++ 프로젝트의 성공적인 개발 완료를 위해 프로젝트 연구 및 개발, 운용에 필요한 자금을 기부 받고있는 중입니다! 제 프로젝트에 관심을 가지고 응원해주시는 모든 분들께 무한한 감사를 드립니다!
++ 프로젝트 기부자 분들의 성함은 프로젝트 기여자로써 프로젝트 진행상황을 공유해드리고, Weby Block 프로그램 안에 기여자 명단으로 올려드리겠습니다 :D
++ 프로젝트 기부는 skymin0417@gmail.com 으로 문의를 주시고 진행해주시면 감사하겠습니다 :D
++ `계좌번호: 132-062-831179 / 신용협동조합 / 예금주: 강민수`
