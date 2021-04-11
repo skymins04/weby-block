@@ -3,14 +3,14 @@ import WebyCore from '../WebyCore';
 
 import htmlJson from './html.json';
 import cssJson from './css.json';
-import jsJson from './js.json';
+// import jsJson from './js.json';
 
 abstract class WebyBlocks extends WebyCore {
     constructor() {
         super();
         this.defBlocksHtml();
         this.defBlocksCss();
-        this.defBlocksJs();
+        // this.defBlocksJs();
     }
 
     protected _importBlockGenerateOptions(_s: number): string[][] {
@@ -120,7 +120,7 @@ abstract class WebyBlocks extends WebyCore {
         };
     }
 
-    defBlocksJs(): void {}
+    // defBlocksJs(): void {}
 }
 
 export default WebyBlocks;
